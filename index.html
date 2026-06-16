@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>TroubleMovies — Historias que valen la pena</title>
+<meta name="description" content="Productora audiovisual. Convertimos ideas en historias que la gente recuerda y comparte. Spots, cortometrajes, contenido digital y cobertura de eventos." />
+<meta name="theme-color" content="#07040d" />
+
+<meta property="og:title" content="TroubleMovies — Historias que valen la pena" />
+<meta property="og:description" content="Productora audiovisual creativa. Spots, cortos, contenido digital y eventos." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/yt-seniors.jpg" />
+
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- scroll progress -->
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ============ LOADER ============ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__eyes"><span></span><span></span></div>
+  <img class="loader__logo" src="assets/logo-tm.png" alt="TroubleMovies" />
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<!-- ============ CURSOR ============ -->
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a href="#top" class="brand magnetic" aria-label="TroubleMovies inicio">
+    <img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" />
+  </a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
+    <a href="#work" data-i18n="nav_work">Trabajo</a>
+    <a href="#services" data-i18n="nav_services">Servicios</a>
+    <a href="#about" data-i18n="nav_about">Nosotros</a>
+    <a href="#process" data-i18n="nav_process">Proceso</a>
+    <a href="#contact" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="nav__right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma"><span class="lang__on">ES</span><span class="lang__off">EN</span></button>
+    <a class="nav__ig magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.83.92 1.4.17.42.36 1.06.42 2.25.05 1.28.06 1.66.06 4.86s-.01 3.58-.07 4.85c-.06 1.2-.25 1.83-.42 2.25a3.8 3.8 0 0 1-.9 1.4c-.42.43-.83.7-1.4.92-.42.17-1.06.36-2.25.42-1.28.05-1.66.06-4.86.06s-3.58-.01-4.85-.07c-1.2-.06-1.83-.25-2.25-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.92-1.4c-.17-.42-.36-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.58.07-4.85c.06-1.2.25-1.83.42-2.25.22-.57.49-1 .9-1.42a3.8 3.8 0 0 1 1.42-.9c.42-.17 1.05-.36 2.25-.42C8.42 2.21 8.8 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.18.4-.55.21-.94.47-1.35.88-.4.4-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.18-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.18.21.55.47.94.88 1.35.41.4.8.66 1.35.88.42.16 1.04.35 2.18.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.18-.4.55-.22.94-.48 1.35-.88.4-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.18.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.18-.4-1.24-.06-1.59-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 7.34a2.89 2.89 0 1 0 0-5.78 2.89 2.89 0 0 0 0 5.78Zm5.66-7.5a1.04 1.04 0 1 1-2.08 0 1.04 1.04 0 0 1 2.08 0Z"/></svg>
+    </a>
+    <a href="#contact" class="btn btn--sm magnetic" data-i18n="nav_cta">Cuéntanos tu proyecto</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO (flashlight reveal) ============ -->
+<section class="hero" id="hero">
+  <div class="hero__stage" id="heroStage">
+    <div class="hero__layer hero__layer--ambient">
+      <picture>
+        <source srcset="assets/venado-lg.webp" type="image/webp" media="(min-width:760px)" />
+        <source srcset="assets/venado-sm.webp" type="image/webp" />
+        <img src="assets/venado-lg.jpg" alt="" class="hero__deer" />
+      </picture>
+    </div>
+    <div class="hero__layer hero__layer--torch">
+      <picture>
+        <source srcset="assets/venado-lg.webp" type="image/webp" media="(min-width:760px)" />
+        <source srcset="assets/venado-sm.webp" type="image/webp" />
+        <img src="assets/venado-lg.jpg" alt="" class="hero__deer" />
+      </picture>
+    </div>
+    <canvas class="hero__embers" id="embers" aria-hidden="true"></canvas>
+    <div class="hero__vignette"></div>
+    <div class="hero__grain"></div>
+  </div>
+
+  <div class="hero__inner">
+    <p class="eyebrow hero__eyebrow"><span data-i18n="hero_eyebrow">Productora audiovisual</span></p>
+    <h1 class="hero__title" id="heroTitle">
+      <span class="l"><span data-i18n="hero_l1">Historias que</span></span>
+      <span class="l"><em data-i18n="hero_l2">valen la pena.</em></span>
+    </h1>
+    <p class="hero__sub" data-i18n="hero_sub">Convertimos ideas en historias que la gente recuerda — y comparte. A veces hay que meterse en problemas para crear algo memorable. Del bueno.</p>
+    <div class="hero__cta">
+      <a href="#work" class="btn magnetic" data-i18n="hero_work">Ver el trabajo</a>
+      <button class="hero__reel magnetic" id="reelBtn" data-cursor="play">
+        <span class="hero__reel-ring"><span class="hero__reel-tri"></span></span>
+        <span class="hero__reel-txt"><b data-i18n="hero_reel_k">Último proyecto</b><i>MARYGYM · Spot 2025</i></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="hero__hint" id="heroHint" aria-hidden="true"><span data-i18n="hero_hint">Mueve el cursor para iluminar</span></div>
+  <a href="#work" class="hero__scroll" aria-label="Bajar"><span data-i18n="hero_scroll">Scroll</span><i></i></a>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" id="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>GOOD TROUBLE</span><b>✦</b><span>STORYTELLING</span><b>✦</b><span>SPOTS</span><b>✦</b><span>CORTOMETRAJES</span><b>✦</b><span>EVENTOS</span><b>✦</b><span>CONTENIDO DIGITAL</span><b>✦</b>
+    <span>GOOD TROUBLE</span><b>✦</b><span>STORYTELLING</span><b>✦</b><span>SPOTS</span><b>✦</b><span>CORTOMETRAJES</span><b>✦</b><span>EVENTOS</span><b>✦</b><span>CONTENIDO DIGITAL</span><b>✦</b>
+  </div>
+</div>
+
+<!-- ============ WORK (proof first) ============ -->
+<section class="work" id="work">
+  <div class="section__head">
+    <p class="eyebrow reveal"><span data-i18n="work_eyebrow">Trabajo seleccionado</span></p>
+    <h2 class="section__title reveal" data-split data-i18n="work_title">No lo contamos. Te lo mostramos.</h2>
+  </div>
+  <div class="work__grid" id="workGrid"><!-- rendered by JS --></div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="services" id="services">
+  <div class="section__head">
+    <p class="eyebrow reveal"><span data-i18n="services_eyebrow">Servicios</span></p>
+    <h2 class="section__title reveal" data-split data-i18n="services_title">¿Qué necesitas crear?</h2>
+    <p class="section__lead reveal" data-i18n="services_lead">De la idea a la entrega final. Tú traes la visión, nosotros el oficio para volverla inolvidable.</p>
+  </div>
+  <div class="svc">
+    <article class="svc__item reveal">
+      <span class="svc__num">01</span>
+      <div class="svc__body"><h3 data-i18n="svc1_t">Producción integral</h3><p data-i18n="svc1_d">Desde la idea y el guion hasta filmación, edición y entrega final. Un solo equipo responsable de todo el proceso.</p></div>
+      <span class="svc__arrow">↗</span>
+    </article>
+    <article class="svc__item reveal">
+      <span class="svc__num">02</span>
+      <div class="svc__body"><h3 data-i18n="svc2_t">Spots y contenido digital</h3><p data-i18n="svc2_d">Videos creativos para redes, campañas de marketing y lanzamientos de marca. Pensados para detener el scroll.</p></div>
+      <span class="svc__arrow">↗</span>
+    </article>
+    <article class="svc__item reveal">
+      <span class="svc__num">03</span>
+      <div class="svc__body"><h3 data-i18n="svc3_t">Cortometrajes y cine</h3><p data-i18n="svc3_d">Desarrollo de historias con alma, listas para festivales y exhibiciones. Narrativa que trasciende la pantalla.</p></div>
+      <span class="svc__arrow">↗</span>
+    </article>
+    <article class="svc__item reveal">
+      <span class="svc__num">04</span>
+      <div class="svc__body"><h3 data-i18n="svc4_t">Cobertura de eventos</h3><p data-i18n="svc4_d">Graduaciones, conferencias, lanzamientos y experiencias en vivo filmadas con mirada cinematográfica.</p></div>
+      <span class="svc__arrow">↗</span>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ABOUT / WHY TROUBLE ============ -->
+<section class="about" id="about">
+  <div class="about__grid">
+    <div class="about__left">
+      <p class="eyebrow reveal"><span data-i18n="about_eyebrow">Por qué Trouble</span></p>
+      <h2 class="about__title reveal" data-split data-i18n="about_title">Las historias que importan no nacen de jugar a lo seguro.</h2>
+      <div class="about__media reveal">
+        <picture>
+          <source srcset="assets/venado-lg.webp" type="image/webp" />
+          <img src="assets/venado-lg.jpg" alt="El venado, tótem de TroubleMovies" loading="lazy" />
+        </picture>
+        <span class="about__media-cap" data-i18n="about_cap">El venado · nuestro tótem</span>
+      </div>
+    </div>
+    <div class="about__right">
+      <p class="reveal" data-i18n="about_p1">Somos <b>TroubleMovies</b>, una productora audiovisual que cree que cada proyecto merece una historia única. No hacemos contenido que pasa desapercibido: hacemos piezas que detienen el scroll, que emocionan y que mueven a la acción.</p>
+      <p class="reveal" data-i18n="about_p2">El venado es nuestro tótem: silencioso, atento, imposible de ignorar cuando aparece en la oscuridad. Así trabajamos — con calma, oficio y una mirada que no se conforma. Creativos por convicción, profesionales por costumbre.</p>
+      <div class="stats">
+        <div class="stat reveal"><span class="stat__num" data-count="40">0</span><span class="stat__plus">+</span><p data-i18n="stat_1">Proyectos producidos</p></div>
+        <div class="stat reveal"><span class="stat__num" data-count="100">0</span><span class="stat__plus">%</span><p data-i18n="stat_2">Hechos a medida</p></div>
+        <div class="stat reveal"><span class="stat__num" data-count="12">0</span><span class="stat__plus">+</span><p data-i18n="stat_3">Marcas que confían</p></div>
+        <div class="stat reveal"><span class="stat__num" data-count="2">0</span><span class="stat__plus">M+</span><p data-i18n="stat_4">Vistas generadas</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section class="process" id="process">
+  <div class="section__head">
+    <p class="eyebrow reveal"><span data-i18n="process_eyebrow">Cómo trabajamos</span></p>
+    <h2 class="section__title reveal" data-split data-i18n="process_title">Sin sorpresas. Solo buen trabajo.</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><span class="step__n">01</span><h3 data-i18n="step1_t">Conversamos</h3><p data-i18n="step1_d">Entendemos tu objetivo, tu marca y a quién quieres llegar. Sin briefs interminables.</p></div>
+    <div class="step reveal"><span class="step__n">02</span><h3 data-i18n="step2_t">Creamos la idea</h3><p data-i18n="step2_d">Concepto, guion y plan de producción. Te mostramos a dónde vamos antes de grabar.</p></div>
+    <div class="step reveal"><span class="step__n">03</span><h3 data-i18n="step3_t">Producimos</h3><p data-i18n="step3_d">Rodaje y dirección con un equipo que cuida cada detalle frente y detrás de cámara.</p></div>
+    <div class="step reveal"><span class="step__n">04</span><h3 data-i18n="step4_t">Entregamos</h3><p data-i18n="step4_d">Edición, color y sonido. Recibes piezas listas para publicar en cada formato.</p></div>
+  </div>
+</section>
+
+<!-- ============ CLIENTS + TESTIMONIAL ============ -->
+<section class="clients">
+  <p class="clients__label reveal" data-i18n="clients_label">Marcas que confían en nosotros</p>
+  <div class="clients__row reveal">
+    <img src="assets/client-marymount.png" alt="Marymount" loading="lazy" />
+    <img src="assets/client-sensepot.png" alt="Sensepot" loading="lazy" />
+    <span class="clients__more" data-i18n="clients_more">y más…</span>
+  </div>
+  <figure class="quote reveal">
+    <blockquote data-i18n="quote_text">“Llegaron, entendieron la idea en cinco minutos y entregaron algo mejor de lo que imaginamos. El resultado habló por sí solo.”</blockquote>
+    <figcaption><b>— Cliente</b> <span data-i18n="quote_who">Marca / Institución</span></figcaption>
+  </figure>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact">
+  <div class="contact__bg" aria-hidden="true"><div class="contact__glow"></div></div>
+  <div class="contact__inner">
+    <div class="contact__left">
+      <p class="eyebrow reveal"><span data-i18n="contact_eyebrow">Hagámoslo</span></p>
+      <h2 class="contact__title reveal" data-split data-i18n="contact_title">¿Tienes una historia que contar?</h2>
+      <p class="contact__lead reveal" data-i18n="contact_lead">Cuéntanos qué tienes en mente. Te respondemos rápido y sin compromiso.</p>
+      <div class="contact__direct reveal">
+        <a href="mailto:troublemoviesproductions@gmail.com" class="contact__mail magnetic">troublemoviesproductions@gmail.com</a>
+        <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener" class="magnetic">@troublemovies</a>
+      </div>
+    </div>
+    <form class="form reveal" id="contactForm" novalidate>
+      <div class="field"><input type="text" id="f_name" name="name" required placeholder=" " /><label for="f_name" data-i18n="form_name">Tu nombre</label></div>
+      <div class="field"><input type="email" id="f_email" name="email" required placeholder=" " /><label for="f_email" data-i18n="form_email">Tu email</label></div>
+      <div class="field">
+        <select id="f_type" name="type" required>
+          <option value="" selected disabled data-i18n="form_type">Tipo de proyecto</option>
+          <option data-i18n="form_type1">Spot / contenido digital</option>
+          <option data-i18n="form_type2">Cortometraje / cine</option>
+          <option data-i18n="form_type3">Producción integral</option>
+          <option data-i18n="form_type4">Cobertura de evento</option>
+          <option data-i18n="form_type5">Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <select id="f_budget" name="budget">
+          <option value="" selected disabled data-i18n="form_budget">Presupuesto aproximado</option>
+          <option>&lt; $10,000 MXN</option>
+          <option>$10,000 – $30,000 MXN</option>
+          <option>$30,000 – $80,000 MXN</option>
+          <option>&gt; $80,000 MXN</option>
+          <option data-i18n="form_budget_x">Aún no lo sé</option>
+        </select>
+      </div>
+      <div class="field field--full"><textarea id="f_msg" name="message" rows="3" placeholder=" "></textarea><label for="f_msg" data-i18n="form_msg">Cuéntanos sobre el proyecto</label></div>
+      <button type="submit" class="btn btn--full magnetic" data-i18n="form_send">Enviar solicitud</button>
+      <p class="form__note" id="formNote" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__cta">
+    <a href="#contact" class="footer__big" data-i18n="footer_big">Hagamos algo memorable →</a>
+  </div>
+  <div class="footer__top">
+    <a href="#top" class="brand brand--lg magnetic"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+    <p class="footer__tag" data-i18n="footer_tag">Historias que valen la pena.</p>
+  </div>
+  <div class="footer__links">
+    <a href="#work" data-i18n="nav_work">Trabajo</a>
+    <a href="#services" data-i18n="nav_services">Servicios</a>
+    <a href="#about" data-i18n="nav_about">Nosotros</a>
+    <a href="#contact" data-i18n="nav_contact">Contacto</a>
+    <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> TroubleMovies Productions®</span>
+    <span class="footer__deer">✦</span>
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
+  <p class="lightbox__title" id="lightboxTitle"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
