@@ -110,11 +110,32 @@
       <p class="eyebrow"><span data-i18n="s_team_eye">Detrás de cámara</span></p>
       <h2 class="sec__title" data-i18n="s_team_title">El equipo de esta producción</h2>
     </div>
-    <div class="crew">
-      <div class="crew__item reveal"><div class="crew__avatar">AN</div><div class="crew__name">Alonso Noval</div><div class="crew__role" data-i18n="s_role1">Dirección y post-producción</div></div>
-      <div class="crew__item reveal"><div class="crew__avatar">EM</div><div class="crew__name">Emilia Meade</div><div class="crew__role" data-i18n="s_role2">Dirección</div></div>
-      <div class="crew__item reveal"><div class="crew__avatar">FA</div><div class="crew__name">Frida Aguilera</div><div class="crew__role" data-i18n="s_role3">Post-producción</div></div>
-      <div class="crew__item reveal"><div class="crew__avatar">EG</div><div class="crew__name">Emilia García-Toraño</div><div class="crew__role" data-i18n="s_role4">Producción</div></div>
+    <div class="members">
+      <div class="member reveal"><div class="member__photo"><img src="assets/team-alonso.jpg" alt="Alonso Noval" loading="lazy" /></div><div class="member__body"><div class="member__name">Alonso Noval</div><div class="member__role" data-i18n="s_role1">Dirección y post-producción</div></div></div>
+      <div class="member reveal"><div class="member__photo"><img src="assets/team-meade.jpg" alt="Emilia Meade" loading="lazy" /></div><div class="member__body"><div class="member__name">Emilia Meade</div><div class="member__role" data-i18n="s_role2">Dirección</div></div></div>
+      <div class="member reveal"><div class="member__photo"><img src="assets/team-frida.jpg" alt="Frida Aguilera" loading="lazy" /></div><div class="member__body"><div class="member__name">Frida Aguilera</div><div class="member__role" data-i18n="s_role3">Post-producción</div></div></div>
+      <div class="member reveal"><div class="member__photo"><img src="assets/team-garcia.jpg" alt="Emilia García-Toraño" loading="lazy" /></div><div class="member__body"><div class="member__name">Emilia García-Toraño</div><div class="member__role" data-i18n="s_role4">Producción</div></div></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec wrap" id="galeria">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="s_gal_eye">Galería</span></p>
+      <h2 class="sec__title" data-i18n="s_gal_title">Momentos de la generación</h2>
+    </div>
+    <div class="gallery">
+      <div class="gphoto gphoto--big reveal" data-img="assets/sr-g1.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g1.jpg" alt="Seniors 2025" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/sr-g2.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g2.jpg" alt="Seniors 2025" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/sr-g3.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g3.jpg" alt="Seniors 2025" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/sr-g5.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g5.jpg" alt="Seniors 2025" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/sr-g6.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g6.jpg" alt="Seniors 2025" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/sr-g4.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g4.jpg" alt="Seniors 2025" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/sr-g7.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g7.jpg" alt="Seniors 2025" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/sr-g8.jpg" data-title="Seniors 2025 · Marymount"><img src="assets/sr-g8.jpg" alt="Seniors 2025" loading="lazy" /></div>
+    </div>
+    <div style="margin-top:1.6rem; text-align:center">
+      <a class="btn btn--ghost magnetic" href="https://drive.google.com/drive/folders/1FFiFnUyMlAc-OdhqZiUMovm50r6OGg8H?usp=sharing" target="_blank" rel="noopener" data-i18n="s_gal_all">Ver galería completa ↗</a>
     </div>
   </section>
 
@@ -204,6 +225,8 @@
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <button class="lightbox__arrow lightbox__arrow--prev" id="lbPrev" aria-label="Anterior">‹</button>
+  <button class="lightbox__arrow lightbox__arrow--next" id="lbNext" aria-label="Siguiente">›</button>
   <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
   <p class="lightbox__title" id="lightboxTitle"></p>
 </div>
@@ -221,6 +244,7 @@ window.PAGE_I18N = {
     s_f1:"Generación", s_f2:"En el equipo", s_f3:"Años de oficio", s_f4:"Recuerdos",
     s_team_eye:"Detrás de cámara", s_team_title:"El equipo de esta producción",
     s_role1:"Dirección y post-producción", s_role2:"Dirección", s_role3:"Post-producción", s_role4:"Producción",
+    s_gal_eye:"Galería", s_gal_title:"Momentos de la generación", s_gal_all:"Ver galería completa ↗",
     s_gift_title:"Un regalo para nuestra comunidad",
     s_gift1:"Este proyecto no generó ninguna ganancia económica. Fue creado con y por amor, entrega y muchísima ilusión de crear un recuerdo eterno a nuestra comunidad.",
     s_gift2:"Es nuestro regalo para quienes caminaron a nuestro lado: nuestra generación, nuestro colegio y nuestra comunidad.",
@@ -250,6 +274,7 @@ window.PAGE_I18N = {
     s_f1:"Class of", s_f2:"On the team", s_f3:"Years of craft", s_f4:"Memories",
     s_team_eye:"Behind the camera", s_team_title:"The team behind this production",
     s_role1:"Direction & post-production", s_role2:"Direction", s_role3:"Post-production", s_role4:"Production",
+    s_gal_eye:"Gallery", s_gal_title:"Moments from the class", s_gal_all:"See full gallery ↗",
     s_gift_title:"A gift to our community",
     s_gift1:"This project generated no financial profit. It was made with and out of love, dedication and a deep wish to create an everlasting memory for our community.",
     s_gift2:"It's our gift to those who walked beside us: our generation, our school and our community.",
