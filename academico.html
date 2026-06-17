@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Proyectos académicos — TroubleMovies Productions</title>
+<meta name="description" content="Proyectos audiovisuales creados con propósito escolar y universitario. Un proceso de aprendizaje, exploración y crecimiento dentro del medio audiovisual." />
+<meta name="theme-color" content="#07040d" />
+<meta property="og:title" content="Proyectos académicos — TroubleMovies" />
+<meta property="og:description" content="Trabajos audiovisuales hechos con propósito académico." />
+<meta property="og:image" content="https://img.youtube.com/vi/NOz4i_zGa-s/hqdefault.jpg" />
+
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__eyes"><span></span><span></span></div>
+  <img class="loader__logo" src="assets/logo-tm.png" alt="TroubleMovies" />
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="brand magnetic" aria-label="TroubleMovies inicio"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
+    <a href="index.html" data-i18n="nav_home">Inicio</a>
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="trouble-music.html" data-i18n="nav_tmmg">TMMG</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="nav__right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma"><span class="lang__on">ES</span><span class="lang__off">EN</span></button>
+    <a class="nav__ig magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.83.92 1.4.17.42.36 1.06.42 2.25.05 1.28.06 1.66.06 4.86s-.01 3.58-.07 4.85c-.06 1.2-.25 1.83-.42 2.25a3.8 3.8 0 0 1-.9 1.4c-.42.43-.83.7-1.4.92-.42.17-1.06.36-2.25.42-1.28.05-1.66.06-4.86.06s-3.58-.01-4.85-.07c-1.2-.06-1.83-.25-2.25-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.92-1.4c-.17-.42-.36-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.58.07-4.85c.06-1.2.25-1.83.42-2.25.22-.57.49-1 .9-1.42a3.8 3.8 0 0 1 1.42-.9c.42-.17 1.05-.36 2.25-.42C8.42 2.21 8.8 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.18.4-.55.21-.94.47-1.35.88-.4.4-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.18-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.18.21.55.47.94.88 1.35.41.4.8.66 1.35.88.42.16 1.04.35 2.18.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.18-.4.55-.22.94-.48 1.35-.88.4-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.18.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.18-.4-1.24-.06-1.59-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 7.34a2.89 2.89 0 1 0 0-5.78 2.89 2.89 0 0 0 0 5.78Zm5.66-7.5a1.04 1.04 0 1 1-2.08 0 1.04 1.04 0 0 1 2.08 0Z"/></svg></a>
+    <a href="index.html#contact" class="btn btn--sm magnetic" data-i18n="nav_cta">Cuéntanos tu proyecto</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="page" id="top" style="--accent:#7aa2ff; --accent-2:#b98cff;">
+
+  <!-- HERO -->
+  <section class="phero" style="min-height:60vh">
+    <div class="phero__bg" style="background:radial-gradient(110% 90% at 75% 0%,color-mix(in srgb,var(--accent) 24%,transparent),transparent 55%),var(--bg)"></div>
+    <div class="phero__grain"></div>
+    <div class="phero__inner">
+      <div class="phero__kicker">
+        <a href="proyectos.html" class="crumb magnetic"><i>←</i><span data-i18n="crumb">Proyectos</span></a>
+        <span class="tagchip" data-i18n="a_tag">Propósito escolar</span>
+      </div>
+      <h1 class="phero__title" data-split data-i18n="a_title">Proyectos académicos</h1>
+      <p class="phero__sub" data-i18n="a_sub">Trabajos creados exclusivamente para asignaturas escolares y universitarias. Sin fin comercial: un proceso de aprendizaje, exploración y crecimiento dentro del medio audiovisual.</p>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="sec wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="a_g_eye">La galería</span></p>
+      <h2 class="sec__title" data-i18n="a_g_title">Cinco proyectos para ver</h2>
+    </div>
+    <div class="vgrid">
+      <div class="vcard reveal" data-video="NOz4i_zGa-s" data-title="Premio Contacto Banxico 2024" data-cursor="play" data-cursor-label="Play">
+        <img src="https://img.youtube.com/vi/NOz4i_zGa-s/hqdefault.jpg" alt="Premio Contacto Banxico 2024" loading="lazy" />
+        <div class="vcard__shade"></div><span class="vcard__tag" data-tag>Ver video</span><div class="vcard__play"></div>
+        <div class="vcard__info"><div class="vcard__cat" data-i18n="a_v1c">Concurso</div><div class="vcard__name">Premio Contacto Banxico 2024</div></div>
+      </div>
+      <div class="vcard reveal" data-video="yV1TlAEXlaM" data-title="Una Señora" data-cursor="play" data-cursor-label="Play">
+        <img src="https://img.youtube.com/vi/yV1TlAEXlaM/hqdefault.jpg" alt="Una Señora" loading="lazy" />
+        <div class="vcard__shade"></div><span class="vcard__tag" data-tag>Ver video</span><div class="vcard__play"></div>
+        <div class="vcard__info"><div class="vcard__cat" data-i18n="a_v2c">Cortometraje</div><div class="vcard__name">Una Señora</div></div>
+      </div>
+      <div class="vcard reveal" data-video="oiVh7uOOTYU" data-title="Primavera con la esquina rota" data-cursor="play" data-cursor-label="Play">
+        <img src="https://img.youtube.com/vi/oiVh7uOOTYU/hqdefault.jpg" alt="Primavera con la esquina rota" loading="lazy" />
+        <div class="vcard__shade"></div><span class="vcard__tag" data-tag>Ver video</span><div class="vcard__play"></div>
+        <div class="vcard__info"><div class="vcard__cat" data-i18n="a_v3c">Adaptación literaria</div><div class="vcard__name">Primavera con la esquina rota</div></div>
+      </div>
+      <div class="vcard reveal" data-video="r2nj818YhNM" data-title="Literatura Medieval" data-cursor="play" data-cursor-label="Play">
+        <img src="https://img.youtube.com/vi/r2nj818YhNM/hqdefault.jpg" alt="Literatura Medieval" loading="lazy" />
+        <div class="vcard__shade"></div><span class="vcard__tag" data-tag>Ver video</span><div class="vcard__play"></div>
+        <div class="vcard__info"><div class="vcard__cat" data-i18n="a_v4c">Proyecto de clase</div><div class="vcard__name">Literatura Medieval</div></div>
+      </div>
+      <a class="vcard reveal" href="theoffice-ibero1.html" style="text-decoration:none">
+        <img src="https://img.youtube.com/vi/dyGT5oSBBNo/hqdefault.jpg" alt="The Office — Ibero Edition" loading="lazy" />
+        <div class="vcard__shade"></div><span class="vcard__tag" data-i18n="a_page">Página del proyecto</span>
+        <div class="vcard__play" style="background:var(--grad-page);opacity:1"></div>
+        <div class="vcard__info"><div class="vcard__cat" data-i18n="a_v5c">Mockumentary · Ibero</div><div class="vcard__name">The Office — Ibero Edition</div></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- NOTE -->
+  <section class="sec wrap wrap--narrow">
+    <div class="callout reveal">
+      <h2 class="callout__title" data-i18n="a_note_t">Hechos para aprender, no para vender</h2>
+      <p data-i18n="a_note_p">Estos proyectos se desarrollaron para cumplir requisitos académicos, sin intención comercial. Representan un proceso de exploración y crecimiento — y el gusto de hacer las cosas un poco mejor de lo que la tarea pedía.</p>
+    </div>
+  </section>
+
+  <!-- PRIVACY / USE -->
+  <section class="sec wrap wrap--narrow">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="a_pp_eye">Uso y privacidad</span></p>
+      <h2 class="sec__title" data-i18n="a_pp_title">Cómo se usa este material</h2>
+    </div>
+    <div class="acc reveal">
+      <div class="acc__item"><button class="acc__head"><span data-i18n="a_q1">Uso exclusivamente académico</span><span class="acc__sign"></span></button><div class="acc__panel"><div class="acc__panel-in"><p data-i18n="a_a1">Todo el contenido de esta sección fue producido para fines escolares o universitarios. No tiene fines comerciales ni de lucro.</p></div></div></div>
+      <div class="acc__item"><button class="acc__head"><span data-i18n="a_q2">Consentimiento de participantes</span><span class="acc__sign"></span></button><div class="acc__panel"><div class="acc__panel-in"><p data-i18n="a_a2">Las personas que aparecen participaron de manera voluntaria y dieron su consentimiento para ser grabadas dentro del contexto académico del proyecto.</p></div></div></div>
+      <div class="acc__item"><button class="acc__head"><span data-i18n="a_q3">Derechos institucionales</span><span class="acc__sign"></span></button><div class="acc__panel"><div class="acc__panel-in"><p data-i18n="a_a3">Cuando corresponde, se respetan los derechos y lineamientos de las instituciones educativas implicadas en cada proyecto.</p></div></div></div>
+      <div class="acc__item"><button class="acc__head"><span data-i18n="a_q4">Propiedad y distribución</span><span class="acc__sign"></span></button><div class="acc__panel"><div class="acc__panel-in"><p data-i18n="a_a4">El material es propiedad intelectual de TroubleMovies Productions® o se utilizó con las licencias correspondientes. Se prohíbe su reproducción o distribución no autorizada.</p></div></div></div>
+      <div class="acc__item"><button class="acc__head"><span data-i18n="a_q5">Conservación y archivo</span><span class="acc__sign"></span></button><div class="acc__panel"><div class="acc__panel-in"><p data-i18n="a_a5">Estos trabajos se conservan como archivo del proceso de aprendizaje. Cualquier semejanza con situaciones ajenas a la producción es pura coincidencia.</p></div></div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__cta"><a href="index.html#contact" class="footer__big" data-i18n="footer_big">Hagamos algo memorable →</a></div>
+  <div class="footer__top">
+    <a href="index.html" class="brand brand--lg magnetic"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+    <p class="footer__tag" data-i18n="footer_tag">Historias que valen la pena.</p>
+  </div>
+  <div class="footer__links">
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+    <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> TroubleMovies Productions®</span>
+    <span class="footer__deer">✦</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
+  <p class="lightbox__title" id="lightboxTitle"></p>
+</div>
+
+<script>
+window.PAGE_I18N = {
+  es: {
+    crumb:"Proyectos", a_tag:"Propósito escolar", a_title:"Proyectos académicos",
+    a_sub:"Trabajos creados exclusivamente para asignaturas escolares y universitarias. Sin fin comercial: un proceso de aprendizaje, exploración y crecimiento dentro del medio audiovisual.",
+    a_g_eye:"La galería", a_g_title:"Cinco proyectos para ver",
+    a_v1c:"Concurso", a_v2c:"Cortometraje", a_v3c:"Adaptación literaria", a_v4c:"Proyecto de clase", a_v5c:"Mockumentary · Ibero",
+    a_page:"Página del proyecto",
+    a_note_t:"Hechos para aprender, no para vender",
+    a_note_p:"Estos proyectos se desarrollaron para cumplir requisitos académicos, sin intención comercial. Representan un proceso de exploración y crecimiento — y el gusto de hacer las cosas un poco mejor de lo que la tarea pedía.",
+    a_pp_eye:"Uso y privacidad", a_pp_title:"Cómo se usa este material",
+    a_q1:"Uso exclusivamente académico", a_a1:"Todo el contenido de esta sección fue producido para fines escolares o universitarios. No tiene fines comerciales ni de lucro.",
+    a_q2:"Consentimiento de participantes", a_a2:"Las personas que aparecen participaron de manera voluntaria y dieron su consentimiento para ser grabadas dentro del contexto académico del proyecto.",
+    a_q3:"Derechos institucionales", a_a3:"Cuando corresponde, se respetan los derechos y lineamientos de las instituciones educativas implicadas en cada proyecto.",
+    a_q4:"Propiedad y distribución", a_a4:"El material es propiedad intelectual de TroubleMovies Productions® o se utilizó con las licencias correspondientes. Se prohíbe su reproducción o distribución no autorizada.",
+    a_q5:"Conservación y archivo", a_a5:"Estos trabajos se conservan como archivo del proceso de aprendizaje. Cualquier semejanza con situaciones ajenas a la producción es pura coincidencia.",
+  },
+  en: {
+    crumb:"Projects", a_tag:"Academic purpose", a_title:"Academic projects",
+    a_sub:"Works created exclusively for school and university assignments. No commercial intent: a process of learning, exploration and growth within audiovisual media.",
+    a_g_eye:"The gallery", a_g_title:"Five projects to watch",
+    a_v1c:"Contest", a_v2c:"Short film", a_v3c:"Literary adaptation", a_v4c:"Class project", a_v5c:"Mockumentary · Ibero",
+    a_page:"Project page",
+    a_note_t:"Made to learn, not to sell",
+    a_note_p:"These projects were developed to meet academic requirements, with no commercial intent. They represent a process of exploration and growth — and the joy of doing things a little better than the assignment asked for.",
+    a_pp_eye:"Use & privacy", a_pp_title:"How this material is used",
+    a_q1:"Strictly academic use", a_a1:"All content in this section was produced for school or university purposes. It has no commercial or for-profit intent.",
+    a_q2:"Participant consent", a_a2:"The people featured took part voluntarily and consented to be filmed within the academic context of the project.",
+    a_q3:"Institutional rights", a_a3:"Where applicable, the rights and guidelines of the educational institutions involved in each project are respected.",
+    a_q4:"Ownership & distribution", a_a4:"The material is the intellectual property of TroubleMovies Productions® or was used under the corresponding licenses. Unauthorized reproduction or distribution is prohibited.",
+    a_q5:"Preservation & archive", a_a5:"These works are kept as a record of the learning process. Any resemblance to situations outside the production is pure coincidence.",
+  }
+};
+</script>
+<script src="script.js"></script>
+</body>
+</html>

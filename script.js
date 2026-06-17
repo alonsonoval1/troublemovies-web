@@ -1,5 +1,7 @@
 /* ===================================================================
-   TROUBLEMOVIES — interactions v2
+   TROUBLEMOVIES — interactions v3 (page-agnostic)
+   Works on the home page and every project subpage. Every home-only
+   block is guarded so the same file can be shared site-wide.
 =================================================================== */
 (function () {
   "use strict";
@@ -8,24 +10,28 @@
   const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
   const canHover = matchMedia("(hover:hover)").matches;
 
-  $("#year").textContent = new Date().getFullYear();
+  const yearEl = $("#year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ---------- Loader ---------- */
-  addEventListener("load", () => setTimeout(() => $("#loader").classList.add("hide"), reduce ? 0 : 1700));
+  const loader = $("#loader");
+  if (loader) addEventListener("load", () => setTimeout(() => loader.classList.add("hide"), reduce ? 0 : 1700));
 
   /* ---------- Scroll progress ---------- */
   const prog = $("#progress");
-  const onScrollProg = () => {
-    const h = document.documentElement;
-    const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
-    prog.style.width = (p * 100).toFixed(2) + "%";
-  };
-  addEventListener("scroll", onScrollProg, { passive: true });
-  onScrollProg();
+  if (prog) {
+    const onScrollProg = () => {
+      const h = document.documentElement;
+      const p = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+      prog.style.width = (p * 100).toFixed(2) + "%";
+    };
+    addEventListener("scroll", onScrollProg, { passive: true });
+    onScrollProg();
+  }
 
   /* ---------- Custom cursor + labels + magnetic ---------- */
   const cur = $("#cursor"), dot = $("#cursorDot"), curLabel = $("#cursorLabel");
-  if (cur && canHover) {
+  if (cur && dot && canHover) {
     let cx = innerWidth / 2, cy = innerHeight / 2, x = cx, y = cy;
     addEventListener("mousemove", (e) => {
       cx = e.clientX; cy = e.clientY;
@@ -38,12 +44,12 @@
     })();
     document.addEventListener("mouseover", (e) => {
       const play = e.target.closest("[data-cursor='play']");
-      const hot = e.target.closest("a,button,.work__card,.svc__item,input,select,textarea,label");
-      if (play) { cur.classList.add("play"); cur.classList.remove("grow"); curLabel.textContent = "Play"; }
+      const hot = e.target.closest("a,button,.work__card,.svc__item,.vcard,.tile,input,select,textarea,label");
+      if (play) { cur.classList.add("play"); cur.classList.remove("grow"); if (curLabel) curLabel.textContent = play.dataset.cursorLabel || "Play"; }
       else if (hot) { cur.classList.add("grow"); cur.classList.remove("play"); }
     });
     document.addEventListener("mouseout", (e) => {
-      if (e.target.closest("[data-cursor='play'],a,button,.work__card,.svc__item,input,select,textarea,label")) {
+      if (e.target.closest("[data-cursor='play'],a,button,.work__card,.svc__item,.vcard,.tile,input,select,textarea,label")) {
         cur.classList.remove("grow", "play");
       }
     });
@@ -61,23 +67,30 @@
 
   /* ---------- Nav ---------- */
   const nav = $("#nav"), navLinks = $("#navLinks"), burger = $("#burger");
-  addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 40), { passive: true });
-  burger.addEventListener("click", () => {
-    const open = navLinks.classList.toggle("open");
-    burger.setAttribute("aria-expanded", open);
-  });
-  $$("#navLinks a").forEach((a) => a.addEventListener("click", () => {
-    navLinks.classList.remove("open"); burger.setAttribute("aria-expanded", "false");
-  }));
+  if (nav) addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 40), { passive: true });
+  if (burger && navLinks) {
+    burger.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      burger.setAttribute("aria-expanded", open);
+    });
+    $$("#navLinks a").forEach((a) => a.addEventListener("click", () => {
+      navLinks.classList.remove("open"); burger.setAttribute("aria-expanded", "false");
+    }));
+  }
 
-  /* ---------- Scrollspy ---------- */
+  /* ---------- Scrollspy (in-page anchors only) ---------- */
   const navMap = {};
-  $$("#navLinks a").forEach((a) => (navMap[a.getAttribute("href").slice(1)] = a));
-  const spy = new IntersectionObserver((es) => es.forEach((e) => {
-    const a = navMap[e.target.id];
-    if (a && e.isIntersecting) { $$("#navLinks a").forEach((l) => l.classList.remove("active")); a.classList.add("active"); }
-  }), { rootMargin: "-45% 0px -50% 0px" });
-  ["work", "services", "about", "process", "contact"].forEach((id) => { const s = $("#" + id); if (s) spy.observe(s); });
+  $$("#navLinks a").forEach((a) => {
+    const href = a.getAttribute("href") || "";
+    if (href.startsWith("#")) navMap[href.slice(1)] = a;
+  });
+  if (Object.keys(navMap).length) {
+    const spy = new IntersectionObserver((es) => es.forEach((e) => {
+      const a = navMap[e.target.id];
+      if (a && e.isIntersecting) { $$("#navLinks a").forEach((l) => l.classList.remove("active")); a.classList.add("active"); }
+    }), { rootMargin: "-45% 0px -50% 0px" });
+    Object.keys(navMap).forEach((id) => { const s = $("#" + id); if (s) spy.observe(s); });
+  }
 
   /* ---------- Split section titles into words ---------- */
   function split(el) {
@@ -104,25 +117,24 @@
   }), { threshold: 0.5 });
   $$(".stat__num").forEach((el) => countObs.observe(el));
 
-  /* ---------- HERO flashlight + parallax + embers ---------- */
+  /* ---------- HERO flashlight + parallax + embers (home only) ---------- */
   const hero = $("#hero"), stage = $("#heroStage"), hint = $("#heroHint");
-  let mx = 50, my = 42, tmx = 50, tmy = 42, lastInput = 0, interacted = false;
-  function setTorch() {
-    tmx += (mx - tmx) * 0.12; tmy += (my - tmy) * 0.12;
-    stage.style.setProperty("--mx", tmx.toFixed(2) + "%");
-    stage.style.setProperty("--my", tmy.toFixed(2) + "%");
-  }
-  function pointTo(clientX, clientY) {
-    const r = hero.getBoundingClientRect();
-    mx = ((clientX - r.left) / r.width) * 100;
-    my = ((clientY - r.top) / r.height) * 100;
-    lastInput = performance.now();
-    if (!interacted) { interacted = true; if (hint) hint.style.opacity = "0"; }
-  }
-  if (!reduce) {
+  if (hero && stage && !reduce) {
+    let mx = 50, my = 42, tmx = 50, tmy = 42, lastInput = 0, interacted = false;
+    function setTorch() {
+      tmx += (mx - tmx) * 0.12; tmy += (my - tmy) * 0.12;
+      stage.style.setProperty("--mx", tmx.toFixed(2) + "%");
+      stage.style.setProperty("--my", tmy.toFixed(2) + "%");
+    }
+    function pointTo(clientX, clientY) {
+      const r = hero.getBoundingClientRect();
+      mx = ((clientX - r.left) / r.width) * 100;
+      my = ((clientY - r.top) / r.height) * 100;
+      lastInput = performance.now();
+      if (!interacted) { interacted = true; if (hint) hint.style.opacity = "0"; }
+    }
     hero.addEventListener("mousemove", (e) => pointTo(e.clientX, e.clientY));
     hero.addEventListener("touchmove", (e) => { const t = e.touches[0]; pointTo(t.clientX, t.clientY); }, { passive: true });
-    // idle auto-roam (keeps it alive, and is the default on mobile)
     let t0 = performance.now();
     (function roam(now) {
       if (now - lastInput > 1400) {
@@ -133,7 +145,6 @@
       setTorch();
       requestAnimationFrame(roam);
     })(t0);
-    // scroll fade + parallax
     addEventListener("scroll", () => {
       const s = scrollY;
       stage.style.transform = `translateY(${s * 0.12}px)`;
@@ -143,7 +154,7 @@
 
   /* ---------- Embers canvas ---------- */
   const cv = $("#embers");
-  if (cv && !reduce) {
+  if (cv && hero && !reduce) {
     const ctx = cv.getContext("2d");
     let W, H, parts = [], running = true;
     const DPR = Math.min(devicePixelRatio || 1, 2);
@@ -170,7 +181,7 @@
   }
 
   /* ===================================================================
-     WORK — verified video mapping
+     WORK grid (home only)
   =================================================================== */
   const WORK = [
     { name: "MARYGYM", cat: "Spot comercial", meta: "Marymount · 2025", yt: "Bmwp6ymWYe4", poster: "yt-marygym", size: "lg" },
@@ -179,61 +190,96 @@
     { name: "Mezcal", cat: "Pieza de marca", meta: "Branded", yt: "iilG5KMpeUw", poster: "yt-mezcal", size: "lg" },
   ];
   const grid = $("#workGrid");
-  grid.innerHTML = WORK.map((w) => `
-    <article class="work__card work__card--${w.size}" data-yt="${w.yt}" data-title="${w.name} — ${w.cat}" tabindex="0" role="button" data-cursor="play" aria-label="Reproducir ${w.name}">
-      <span class="work__tag" data-tag>Ver video</span>
-      <div class="work__media">
-        <picture>
-          <source srcset="assets/${w.poster}.webp" type="image/webp">
-          <img src="assets/${w.poster}.jpg" alt="${w.name}" loading="lazy">
-        </picture>
-      </div>
-      <span class="work__play"></span>
-      <div class="work__overlay">
-        <span class="work__cat">${w.cat} <span>${w.meta}</span></span>
-        <h3 class="work__name">${w.name}</h3>
-      </div>
-    </article>`).join("");
-  $$(".work__card").forEach((card) => {
-    card.addEventListener("click", () => openLightbox(card.dataset.yt, card.dataset.title));
-    card.addEventListener("keydown", (e) => { if (e.key === "Enter") openLightbox(card.dataset.yt, card.dataset.title); });
-  });
-  revObs && $$(".work__card").forEach((c) => revObs.observe(c));
+  if (grid) {
+    grid.innerHTML = WORK.map((w) => `
+      <article class="work__card work__card--${w.size}" data-yt="${w.yt}" data-title="${w.name} — ${w.cat}" tabindex="0" role="button" data-cursor="play" aria-label="Reproducir ${w.name}">
+        <span class="work__tag" data-tag>Ver video</span>
+        <div class="work__media">
+          <picture>
+            <source srcset="assets/${w.poster}.webp" type="image/webp">
+            <img src="assets/${w.poster}.jpg" alt="${w.name}" loading="lazy">
+          </picture>
+        </div>
+        <span class="work__play"></span>
+        <div class="work__overlay">
+          <span class="work__cat">${w.cat} <span>${w.meta}</span></span>
+          <h3 class="work__name">${w.name}</h3>
+        </div>
+      </article>`).join("");
+    $$(".work__card").forEach((card) => {
+      card.addEventListener("click", () => openLightbox(card.dataset.yt, card.dataset.title));
+      card.addEventListener("keydown", (e) => { if (e.key === "Enter") openLightbox(card.dataset.yt, card.dataset.title); });
+      revObs.observe(card);
+    });
+  }
 
-  /* ---------- Lightbox ---------- */
+  /* ---------- Lightbox (site-wide) ---------- */
   const lb = $("#lightbox"), lbPlayer = $("#lightboxPlayer"), lbTitle = $("#lightboxTitle");
   function openLightbox(id, title) {
+    if (!lb) return;
     lbPlayer.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="${title || "Video"}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
-    lbTitle.textContent = title || "";
+    if (lbTitle) lbTitle.textContent = title || "";
     lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
   }
   function closeLightbox() {
+    if (!lb) return;
     lb.classList.remove("open"); lb.setAttribute("aria-hidden", "true"); lbPlayer.innerHTML = ""; document.body.style.overflow = "";
   }
-  $("#lightboxClose").addEventListener("click", closeLightbox);
-  lb.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
-  addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
-  $("#reelBtn").addEventListener("click", () => openLightbox(WORK[0].yt, WORK[0].name + " — " + WORK[0].cat));
+  if (lb) {
+    const lbClose = $("#lightboxClose");
+    if (lbClose) lbClose.addEventListener("click", closeLightbox);
+    lb.addEventListener("click", (e) => { if (e.target === lb) closeLightbox(); });
+    addEventListener("keydown", (e) => { if (e.key === "Escape") closeLightbox(); });
+    // generic openers — any element with data-video="<ytid>" (+ optional data-title)
+    $$("[data-video]").forEach((el) => {
+      el.setAttribute("tabindex", el.getAttribute("tabindex") || "0");
+      el.setAttribute("role", el.getAttribute("role") || "button");
+      const go = () => openLightbox(el.dataset.video, el.dataset.title || el.getAttribute("aria-label"));
+      el.addEventListener("click", go);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
+  }
+  const reelBtn = $("#reelBtn");
+  if (reelBtn) reelBtn.addEventListener("click", () => openLightbox(WORK[0].yt, WORK[0].name + " — " + WORK[0].cat));
 
-  /* ---------- Contact form ---------- */
+  // expose for page-specific scripts
+  window.TM = { openLightbox, closeLightbox };
+
+  /* ---------- Contact form (home only) ---------- */
   const form = $("#contactForm"), note = $("#formNote");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const name = $("#f_name").value.trim(), email = $("#f_email").value.trim();
-    const type = $("#f_type").value, budget = $("#f_budget").value || "—", msg = $("#f_msg").value.trim();
-    if (!name || !email || !type) { note.style.color = "var(--magenta)"; note.textContent = I18N[lang].form_err; return; }
-    const subject = encodeURIComponent(`Nuevo proyecto — ${name} (${type})`);
-    const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\nTipo: ${type}\nPresupuesto: ${budget}\n\n${msg}`);
-    location.href = `mailto:troublemoviesproductions@gmail.com?subject=${subject}&body=${body}`;
-    note.style.color = "var(--violet)"; note.textContent = I18N[lang].form_ok; form.reset();
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = $("#f_name").value.trim(), email = $("#f_email").value.trim();
+      const type = $("#f_type").value, budget = $("#f_budget").value || "—", msg = $("#f_msg").value.trim();
+      if (!name || !email || !type) { note.style.color = "var(--magenta)"; note.textContent = I18N[lang].form_err; return; }
+      const subject = encodeURIComponent(`Nuevo proyecto — ${name} (${type})`);
+      const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\nTipo: ${type}\nPresupuesto: ${budget}\n\n${msg}`);
+      location.href = `mailto:troublemoviesproductions@gmail.com?subject=${subject}&body=${body}`;
+      note.style.color = "var(--violet)"; note.textContent = I18N[lang].form_ok; form.reset();
+    });
+  }
+
+  /* ---------- Accordion (site-wide; .acc > .acc__item > .acc__head + .acc__panel) ---------- */
+  $$(".acc__head").forEach((head) => {
+    const item = head.closest(".acc__item");
+    const panel = item && item.querySelector(".acc__panel");
+    if (!item || !panel) return;
+    head.setAttribute("aria-expanded", "false");
+    head.addEventListener("click", () => {
+      const open = item.classList.toggle("open");
+      head.setAttribute("aria-expanded", open);
+      panel.style.maxHeight = open ? panel.scrollHeight + "px" : "0px";
+    });
   });
 
   /* ===================================================================
-     i18n
+     i18n — base dictionary (home) merged with optional window.PAGE_I18N
   =================================================================== */
   const I18N = {
     es: {
       nav_work: "Trabajo", nav_services: "Servicios", nav_about: "Nosotros", nav_process: "Proceso", nav_contact: "Contacto", nav_cta: "Cuéntanos tu proyecto",
+      nav_projects: "Proyectos", nav_events: "Eventos", nav_tmmg: "TMMG", nav_home: "Inicio", nav_legal: "Aviso Legal", nav_privacy: "Privacidad",
       hero_eyebrow: "Productora audiovisual", hero_l1: "Historias que", hero_l2: "valen la pena.",
       hero_sub: "Convertimos ideas en historias que la gente recuerda — y comparte. A veces hay que meterse en problemas para crear algo memorable. Del bueno.",
       hero_work: "Ver el trabajo", hero_reel_k: "Último proyecto", hero_hint: "Mueve el cursor para iluminar", hero_scroll: "Scroll",
@@ -267,6 +313,7 @@
     },
     en: {
       nav_work: "Work", nav_services: "Services", nav_about: "About", nav_process: "Process", nav_contact: "Contact", nav_cta: "Tell us your project",
+      nav_projects: "Projects", nav_events: "Events", nav_tmmg: "TMMG", nav_home: "Home", nav_legal: "Legal Notice", nav_privacy: "Privacy",
       hero_eyebrow: "Audiovisual production", hero_l1: "Stories worth", hero_l2: "the trouble.",
       hero_sub: "We turn ideas into stories people remember — and share. Sometimes you have to get into a little trouble to create something memorable. The good kind.",
       hero_work: "See the work", hero_reel_k: "Latest project", hero_hint: "Move your cursor to light it up", hero_scroll: "Scroll",
@@ -300,11 +347,16 @@
     },
   };
 
+  // merge per-page strings (declared via <script> before this file)
+  if (window.PAGE_I18N) {
+    for (const l of ["es", "en"]) Object.assign(I18N[l], window.PAGE_I18N[l] || {});
+  }
+
   let lang = localStorage.getItem("tm_lang") || "es";
   const langBtn = $("#langBtn");
   function applyLang(l) {
     lang = l; document.documentElement.lang = l; localStorage.setItem("tm_lang", l);
-    langBtn.classList.toggle("en", l === "en");
+    if (langBtn) langBtn.classList.toggle("en", l === "en");
     $$("[data-i18n]").forEach((el) => {
       const k = el.getAttribute("data-i18n"); if (I18N[l][k] == null) return;
       if (/<[a-z]/i.test(I18N[l][k])) el.innerHTML = I18N[l][k]; else el.textContent = I18N[l][k];
@@ -312,10 +364,15 @@
     // localize the work "Ver video" tags
     $$("[data-tag]").forEach((t) => (t.textContent = l === "es" ? "Ver video" : "Watch"));
     // re-split titles after text swap, then observe
-    $$("[data-split]").forEach((el) => { el.classList.remove("in"); el.innerHTML = `<span class="word"><i>${(I18N[l][el.getAttribute("data-i18n")] || el.textContent).trim().split(/\s+/).join('</i></span> <span class="word"><i>')}</i></span>`; });
+    $$("[data-split]").forEach((el) => {
+      const k = el.getAttribute("data-i18n");
+      const txt = (k && I18N[l][k]) ? I18N[l][k] : el.textContent;
+      el.classList.remove("in");
+      el.innerHTML = `<span class="word"><i>${txt.trim().split(/\s+/).join('</i></span> <span class="word"><i>')}</i></span>`;
+    });
     observeReveals();
   }
-  langBtn.addEventListener("click", () => applyLang(lang === "es" ? "en" : "es"));
+  if (langBtn) langBtn.addEventListener("click", () => applyLang(lang === "es" ? "en" : "es"));
   applyLang(lang);
   observeReveals();
 })();

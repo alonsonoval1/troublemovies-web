@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Eventos — TroubleMovies Productions</title>
+<meta name="description" content="Próximos eventos y participaciones de TroubleMovies Productions: cobertura, patrocinios y proyectos en los que estamos." />
+<meta name="theme-color" content="#07040d" />
+<meta property="og:title" content="Eventos — TroubleMovies" />
+<meta property="og:description" content="Dónde estará TroubleMovies y en qué proyectos participamos." />
+<meta property="og:image" content="assets/maryrun-hero.jpg" />
+
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="pages.css" />
+<style>
+  .ev{ display:grid; grid-template-columns:auto 1fr auto; gap:clamp(1.2rem,3vw,2.6rem); align-items:start;
+    padding:clamp(1.6rem,3.5vw,2.6rem); border:1px solid var(--line); border-radius:18px; background:linear-gradient(160deg,var(--bg-card),transparent);
+    transition:border-color .4s,transform .5s var(--ease); }
+  .ev:hover{ border-color:color-mix(in srgb,var(--accent) 40%,transparent); transform:translateY(-4px); }
+  .ev__date{ text-align:center; min-width:88px; }
+  .ev__date b{ display:block; font-family:var(--display); font-weight:800; font-size:clamp(2rem,5vw,3rem); line-height:1; background:var(--grad-page); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .ev__date span{ font-family:var(--mono); font-size:.74rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+  .ev__status{ display:inline-flex; align-items:center; gap:.45rem; font-family:var(--mono); font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+    border:1px solid var(--line-2); border-radius:100px; padding:.3rem .7rem; color:var(--muted); margin-bottom:.9rem; }
+  .ev__status i{ width:7px; height:7px; border-radius:50%; background:var(--accent); }
+  .ev__status.live i{ background:var(--magenta); box-shadow:0 0 10px var(--magenta); animation:livedot 1.4s ease-in-out infinite; }
+  @keyframes livedot{ 0%,100%{opacity:1} 50%{opacity:.25} }
+  .ev__name{ font-family:var(--display); font-weight:700; font-size:clamp(1.4rem,3vw,2.1rem); letter-spacing:-.015em; }
+  .ev__desc{ color:var(--muted); margin-top:.7rem; max-width:62ch; }
+  .ev__cta{ align-self:center; }
+  @media (max-width:680px){ .ev{ grid-template-columns:1fr; } .ev__date{ display:flex; gap:.6rem; align-items:baseline; min-width:0; text-align:left; } .ev__cta{ align-self:start; } }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__eyes"><span></span><span></span></div>
+  <img class="loader__logo" src="assets/logo-tm.png" alt="TroubleMovies" />
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="brand magnetic" aria-label="TroubleMovies inicio"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
+    <a href="index.html" data-i18n="nav_home">Inicio</a>
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="trouble-music.html" data-i18n="nav_tmmg">TMMG</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="nav__right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma"><span class="lang__on">ES</span><span class="lang__off">EN</span></button>
+    <a class="nav__ig magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.83.92 1.4.17.42.36 1.06.42 2.25.05 1.28.06 1.66.06 4.86s-.01 3.58-.07 4.85c-.06 1.2-.25 1.83-.42 2.25a3.8 3.8 0 0 1-.9 1.4c-.42.43-.83.7-1.4.92-.42.17-1.06.36-2.25.42-1.28.05-1.66.06-4.86.06s-3.58-.01-4.85-.07c-1.2-.06-1.83-.25-2.25-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.92-1.4c-.17-.42-.36-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.58.07-4.85c.06-1.2.25-1.83.42-2.25.22-.57.49-1 .9-1.42a3.8 3.8 0 0 1 1.42-.9c.42-.17 1.05-.36 2.25-.42C8.42 2.21 8.8 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.18.4-.55.21-.94.47-1.35.88-.4.4-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.18-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.18.21.55.47.94.88 1.35.41.4.8.66 1.35.88.42.16 1.04.35 2.18.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.18-.4.55-.22.94-.48 1.35-.88.4-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.18.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.18-.4-1.24-.06-1.59-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 7.34a2.89 2.89 0 1 0 0-5.78 2.89 2.89 0 0 0 0 5.78Zm5.66-7.5a1.04 1.04 0 1 1-2.08 0 1.04 1.04 0 0 1 2.08 0Z"/></svg></a>
+    <a href="index.html#contact" class="btn btn--sm magnetic" data-i18n="nav_cta">Cuéntanos tu proyecto</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="page" id="top" style="--accent:#ffb37a; --accent-2:#ff5c8a;">
+
+  <!-- HERO -->
+  <section class="phero" style="min-height:58vh">
+    <div class="phero__bg" style="background:radial-gradient(110% 90% at 80% 0%,color-mix(in srgb,var(--accent) 26%,transparent),transparent 55%),var(--bg)"></div>
+    <div class="phero__grain"></div>
+    <div class="phero__inner">
+      <div class="phero__kicker">
+        <a href="proyectos.html" class="crumb magnetic"><i>←</i><span data-i18n="crumb">Proyectos</span></a>
+        <span class="tagchip" data-i18n="e_tag">Agenda</span>
+      </div>
+      <h1 class="phero__title" data-split data-i18n="e_title">Dónde estará TM®</h1>
+      <p class="phero__sub" data-i18n="e_sub">Los eventos y proyectos en los que TroubleMovies participa: cobertura, patrocinios y nuevas colaboraciones.</p>
+    </div>
+  </section>
+
+  <!-- EVENT LIST -->
+  <section class="sec wrap">
+    <div style="display:grid; gap:clamp(1rem,2vw,1.6rem)">
+
+      <article class="ev reveal">
+        <div class="ev__date"><b>XI</b><span>MaryRun</span></div>
+        <div>
+          <span class="ev__status live"><i></i><span data-i18n="e_s1">Realizado · Ene 2026</span></span>
+          <h2 class="ev__name">MARYRUN XI</h2>
+          <p class="ev__desc" data-i18n="e_d1">TroubleMovies participó como <b>Patrocinador Oficial y Coordinador de Difusión</b>. Estuvimos a cargo de la grabación y transmisión en vivo, la cobertura completa y la producción de todo el contenido audiovisual del evento.</p>
+        </div>
+        <div class="ev__cta"><a class="btn btn--sm magnetic" href="maryrun11.html" data-i18n="e_cta1">Ver cobertura</a></div>
+      </article>
+
+      <article class="ev reveal">
+        <div class="ev__date"><b>26</b><span>2026</span></div>
+        <div>
+          <span class="ev__status"><i></i><span data-i18n="e_s2">Postulación</span></span>
+          <h2 class="ev__name">Emergente Banamex 2026</h2>
+          <p class="ev__desc" data-i18n="e_d2">TroubleMovies participa como proyecto postulante en <b>Talento Emergente Banamex 2026</b>, buscando formar parte de una experiencia enfocada en emprendimiento, innovación y crecimiento, con el objetivo de impulsar el desarrollo del proyecto y conectar con mentores y aliados estratégicos.</p>
+        </div>
+        <div class="ev__cta"><span class="tagchip" data-i18n="e_pending">En proceso</span></div>
+      </article>
+
+      <article class="ev reveal" style="opacity:.85">
+        <div class="ev__date"><b>✦</b><span data-i18n="e_soon_s">Pronto</span></div>
+        <div>
+          <span class="ev__status"><i></i><span data-i18n="e_s3">Próximamente</span></span>
+          <h2 class="ev__name" data-i18n="e_n3">Algo se está cocinando…</h2>
+          <p class="ev__desc" data-i18n="e_d3">Estamos preparando nuevos proyectos y colaboraciones. Síguenos en Instagram para enterarte primero.</p>
+        </div>
+        <div class="ev__cta"><a class="btn btn--sm btn--ghost magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" data-i18n="e_cta3">Seguir en IG</a></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sec wrap wrap--narrow">
+    <div class="callout reveal" style="text-align:center">
+      <h2 class="callout__title" style="margin-inline:auto" data-i18n="e_cta_t">¿Tienes un evento por venir?</h2>
+      <p style="margin-inline:auto" data-i18n="e_cta_p">Cobertura, transmisión en vivo y contenido audiovisual. Cuéntanos los detalles.</p>
+      <div style="margin-top:1.8rem"><a class="btn magnetic" href="index.html#contact" data-i18n="nav_cta">Cuéntanos tu proyecto</a></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__cta"><a href="index.html#contact" class="footer__big" data-i18n="footer_big">Hagamos algo memorable →</a></div>
+  <div class="footer__top">
+    <a href="index.html" class="brand brand--lg magnetic"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+    <p class="footer__tag" data-i18n="footer_tag">Historias que valen la pena.</p>
+  </div>
+  <div class="footer__links">
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+    <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> TroubleMovies Productions®</span>
+    <span class="footer__deer">✦</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
+  <p class="lightbox__title" id="lightboxTitle"></p>
+</div>
+
+<script>
+window.PAGE_I18N = {
+  es: {
+    crumb:"Proyectos", e_tag:"Agenda", e_title:"Dónde estará TM®",
+    e_sub:"Los eventos y proyectos en los que TroubleMovies participa: cobertura, patrocinios y nuevas colaboraciones.",
+    e_s1:"Realizado · Ene 2026",
+    e_d1:"TroubleMovies participó como <b>Patrocinador Oficial y Coordinador de Difusión</b>. Estuvimos a cargo de la grabación y transmisión en vivo, la cobertura completa y la producción de todo el contenido audiovisual del evento.",
+    e_cta1:"Ver cobertura",
+    e_s2:"Postulación",
+    e_d2:"TroubleMovies participa como proyecto postulante en <b>Talento Emergente Banamex 2026</b>, buscando formar parte de una experiencia enfocada en emprendimiento, innovación y crecimiento, con el objetivo de impulsar el desarrollo del proyecto y conectar con mentores y aliados estratégicos.",
+    e_pending:"En proceso",
+    e_soon_s:"Pronto", e_s3:"Próximamente", e_n3:"Algo se está cocinando…",
+    e_d3:"Estamos preparando nuevos proyectos y colaboraciones. Síguenos en Instagram para enterarte primero.", e_cta3:"Seguir en IG",
+    e_cta_t:"¿Tienes un evento por venir?", e_cta_p:"Cobertura, transmisión en vivo y contenido audiovisual. Cuéntanos los detalles.",
+  },
+  en: {
+    crumb:"Projects", e_tag:"Agenda", e_title:"Where TM® will be",
+    e_sub:"The events and projects TroubleMovies takes part in: coverage, sponsorships and new collaborations.",
+    e_s1:"Done · Jan 2026",
+    e_d1:"TroubleMovies took part as <b>Official Sponsor and Outreach Coordinator</b>. We handled the live recording and broadcast, full coverage and the production of all the event's audiovisual content.",
+    e_cta1:"See coverage",
+    e_s2:"Application",
+    e_d2:"TroubleMovies is applying as a candidate project for <b>Talento Emergente Banamex 2026</b>, aiming to join an experience focused on entrepreneurship, innovation and growth — to drive the project forward and connect with mentors and strategic allies.",
+    e_pending:"In progress",
+    e_soon_s:"Soon", e_s3:"Coming soon", e_n3:"Something's cooking…",
+    e_d3:"We're preparing new projects and collaborations. Follow us on Instagram to hear it first.", e_cta3:"Follow on IG",
+    e_cta_t:"Got an event coming up?", e_cta_p:"Coverage, live broadcast and audiovisual content. Tell us the details.",
+  }
+};
+</script>
+<script src="script.js"></script>
+</body>
+</html>

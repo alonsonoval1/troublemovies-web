@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>The Office — Ibero Edition — TroubleMovies Productions</title>
+<meta name="description" content="Mini-serie estilo The Office producida por TroubleMovies como proyecto académico de la Universidad Iberoamericana. Comedia, administración y un jefe que inventa palabras como PESTELE." />
+<meta name="theme-color" content="#07040d" />
+<meta property="og:title" content="The Office — Ibero Edition — TroubleMovies" />
+<meta property="og:description" content="Mockumentary de comedia hecho para la IBERO. ¿Qué es un PESTELE?" />
+<meta property="og:image" content="https://img.youtube.com/vi/dyGT5oSBBNo/hqdefault.jpg" />
+
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="pages.css" />
+<style>
+  .pestele{ font-family:var(--display); font-weight:800; font-style:italic; background:var(--grad-page); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .ep{ display:flex; align-items:center; gap:1.2rem; padding:1.3rem 1.5rem; border:1px solid var(--line); border-radius:14px; background:var(--bg-card);
+    cursor:pointer; transition:border-color .4s,transform .5s var(--ease); }
+  .ep:hover{ border-color:color-mix(in srgb,var(--accent) 45%,transparent); transform:translateY(-3px); }
+  .ep__n{ font-family:var(--display); font-weight:800; font-size:1.6rem; width:2.4rem; flex:none; background:var(--grad-page); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .ep__t{ font-family:var(--display); font-weight:700; font-size:clamp(1.1rem,2.2vw,1.4rem); }
+  .ep__d{ color:var(--muted); font-size:.88rem; margin-top:.2rem; }
+  .ep__play{ margin-left:auto; color:var(--accent); font-size:1.3rem; flex:none; }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__eyes"><span></span><span></span></div>
+  <img class="loader__logo" src="assets/logo-tm.png" alt="TroubleMovies" />
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="brand magnetic" aria-label="TroubleMovies inicio"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
+    <a href="index.html" data-i18n="nav_home">Inicio</a>
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="trouble-music.html" data-i18n="nav_tmmg">TMMG</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="nav__right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma"><span class="lang__on">ES</span><span class="lang__off">EN</span></button>
+    <a class="nav__ig magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.83.92 1.4.17.42.36 1.06.42 2.25.05 1.28.06 1.66.06 4.86s-.01 3.58-.07 4.85c-.06 1.2-.25 1.83-.42 2.25a3.8 3.8 0 0 1-.9 1.4c-.42.43-.83.7-1.4.92-.42.17-1.06.36-2.25.42-1.28.05-1.66.06-4.86.06s-3.58-.01-4.85-.07c-1.2-.06-1.83-.25-2.25-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.92-1.4c-.17-.42-.36-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.58.07-4.85c.06-1.2.25-1.83.42-2.25.22-.57.49-1 .9-1.42a3.8 3.8 0 0 1 1.42-.9c.42-.17 1.05-.36 2.25-.42C8.42 2.21 8.8 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.18.4-.55.21-.94.47-1.35.88-.4.4-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.18-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.18.21.55.47.94.88 1.35.41.4.8.66 1.35.88.42.16 1.04.35 2.18.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.18-.4.55-.22.94-.48 1.35-.88.4-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.18.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.18-.4-1.24-.06-1.59-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 7.34a2.89 2.89 0 1 0 0-5.78 2.89 2.89 0 0 0 0 5.78Zm5.66-7.5a1.04 1.04 0 1 1-2.08 0 1.04 1.04 0 0 1 2.08 0Z"/></svg></a>
+    <a href="index.html#contact" class="btn btn--sm magnetic" data-i18n="nav_cta">Cuéntanos tu proyecto</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="page" id="top" style="--accent:#ffd166; --accent-2:#ff7a59;">
+
+  <!-- HERO -->
+  <section class="phero">
+    <div class="phero__bg"><img src="https://img.youtube.com/vi/dyGT5oSBBNo/maxresdefault.jpg" alt="" onerror="this.src='https://img.youtube.com/vi/dyGT5oSBBNo/hqdefault.jpg'" /></div>
+    <div class="phero__grain"></div>
+    <div class="phero__inner">
+      <div class="phero__kicker">
+        <a href="academico.html" class="crumb magnetic"><i>←</i><span data-i18n="crumb">Proyectos académicos</span></a>
+        <span class="tagchip" data-i18n="o_tag">Mockumentary · IBERO</span>
+      </div>
+      <h1 class="phero__title">THE OFFICE <em>IBERO</em> EDITION</h1>
+      <p class="phero__sub" data-i18n="o_sub">Una mini-serie estilo The Office producida por TroubleMovies como proyecto académico de la Universidad Iberoamericana.</p>
+      <div class="phero__meta">
+        <span><b>IBERO</b> <span data-i18n="o_m1">Universidad</span></span><span class="dot">·</span>
+        <span><b>2</b> <span data-i18n="o_m2">Capítulos</span></span><span class="dot">·</span>
+        <span><b data-i18n="o_m3v">Comedia</b> <span data-i18n="o_m3">Género</span></span>
+      </div>
+      <div class="phero__cta">
+        <button class="btn magnetic" data-video="dyGT5oSBBNo" data-title="The Office — Ibero Edition" data-cursor-label="Play"><span data-i18n="o_watch">▶ Ver el capítulo</span></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE VIDEO -->
+  <section class="sec wrap">
+    <div class="vhero reveal" data-video="dyGT5oSBBNo" data-title="The Office — Ibero Edition" data-cursor="play" data-cursor-label="Play" aria-label="Reproducir The Office Ibero Edition">
+      <img src="https://img.youtube.com/vi/dyGT5oSBBNo/maxresdefault.jpg" alt="The Office — Ibero Edition" onerror="this.src='https://img.youtube.com/vi/dyGT5oSBBNo/hqdefault.jpg'" />
+      <div class="vhero__shade"></div>
+      <div class="vhero__play"><span></span></div>
+      <div class="vhero__cap"><span data-i18n="o_v_kick">Capítulo completo</span><b>El PESTELE que nos arruinó el día</b></div>
+    </div>
+  </section>
+
+  <!-- PREMISE -->
+  <section class="sec wrap wrap--narrow">
+    <div class="prose prose--lg reveal">
+      <p data-i18n="o_p1">Bienvenidos al capítulo completo de <b>"El PESTELE que nos arruinó el día" + "Parte 2: Administraviesos"</b>: una mini-serie estilo The Office que mezcla el humor con conceptos de administración.</p>
+      <p data-i18n="o_p2">Todo gira en torno a un jefe que inventa términos sin sentido — empezando por el legendario <span class="pestele">PESTELE</span> — y a una oficina que intenta sobrevivir a sus ocurrencias.</p>
+    </div>
+  </section>
+
+  <!-- EPISODES -->
+  <section class="sec wrap wrap--narrow">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="o_ep_eye">Los capítulos</span></p>
+      <h2 class="sec__title" data-i18n="o_ep_title">Dos partes, una oficina</h2>
+    </div>
+    <div style="display:grid; gap:1rem">
+      <div class="ep reveal" data-video="dyGT5oSBBNo" data-title="The Office — Parte 1" data-cursor="play" data-cursor-label="Play">
+        <span class="ep__n">1</span>
+        <div><div class="ep__t">El PESTELE que nos arruinó el día</div><div class="ep__d" data-i18n="o_e1">Parte 1 · El término que lo cambió todo.</div></div>
+        <span class="ep__play">▶</span>
+      </div>
+      <div class="ep reveal" data-video="dyGT5oSBBNo" data-title="The Office — Parte 2: Administraviesos" data-cursor="play" data-cursor-label="Play">
+        <span class="ep__n">2</span>
+        <div><div class="ep__t">Administraviesos</div><div class="ep__d" data-i18n="o_e2">Parte 2 · La oficina contraataca.</div></div>
+        <span class="ep__play">▶</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="sec wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="o_team_eye">Quién lo hizo</span></p>
+      <h2 class="sec__title" data-i18n="o_team_title">Un equipo de tres</h2>
+      <p class="sec__lead" data-i18n="o_team_lead">Tres integrantes que se repartieron la dirección, la adaptación del guion y la actuación — haciéndolo mejor de lo que pedía la tarea.</p>
+    </div>
+    <div class="crew">
+      <div class="crew__item reveal"><div class="crew__avatar">🎬</div><div class="crew__name" data-i18n="o_r1t">Dirección</div><div class="crew__role" style="color:var(--muted)" data-i18n="o_r1d">Puesta en escena y ritmo cómico.</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">✍️</div><div class="crew__name" data-i18n="o_r2t">Adaptación de guion</div><div class="crew__role" style="color:var(--muted)" data-i18n="o_r2d">Del concepto académico al humor de oficina.</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">🎭</div><div class="crew__name" data-i18n="o_r3t">Actuación</div><div class="crew__role" style="color:var(--muted)" data-i18n="o_r3d">Los personajes que dan vida al PESTELE.</div></div>
+    </div>
+  </section>
+
+  <!-- ACADEMIC NOTE -->
+  <section class="sec wrap wrap--narrow">
+    <div class="callout reveal">
+      <h2 class="callout__title" data-i18n="o_note_t">Un proyecto académico, hecho en serio (y en broma)</h2>
+      <p data-i18n="o_note_p">Producido para una asignatura de la Universidad Iberoamericana, sin fines comerciales. Lo tomamos como excusa para experimentar con la comedia y empujar un poco más allá de lo que la entrega pedía.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__cta"><a href="index.html#contact" class="footer__big" data-i18n="footer_big">Hagamos algo memorable →</a></div>
+  <div class="footer__top">
+    <a href="index.html" class="brand brand--lg magnetic"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+    <p class="footer__tag" data-i18n="footer_tag">Historias que valen la pena.</p>
+  </div>
+  <div class="footer__links">
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="academico.html" data-i18n="o_back">Proyectos académicos</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+    <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> TroubleMovies Productions®</span>
+    <span class="footer__deer">✦</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
+  <p class="lightbox__title" id="lightboxTitle"></p>
+</div>
+
+<script>
+window.PAGE_I18N = {
+  es: {
+    crumb:"Proyectos académicos", o_tag:"Mockumentary · IBERO",
+    o_sub:"Una mini-serie estilo The Office producida por TroubleMovies como proyecto académico de la Universidad Iberoamericana.",
+    o_m1:"Universidad", o_m2:"Capítulos", o_m3:"Género", o_m3v:"Comedia", o_watch:"▶ Ver el capítulo",
+    o_v_kick:"Capítulo completo",
+    o_p1:"Bienvenidos al capítulo completo de <b>\"El PESTELE que nos arruinó el día\" + \"Parte 2: Administraviesos\"</b>: una mini-serie estilo The Office que mezcla el humor con conceptos de administración.",
+    o_p2:"Todo gira en torno a un jefe que inventa términos sin sentido — empezando por el legendario <span class=\"pestele\">PESTELE</span> — y a una oficina que intenta sobrevivir a sus ocurrencias.",
+    o_ep_eye:"Los capítulos", o_ep_title:"Dos partes, una oficina",
+    o_e1:"Parte 1 · El término que lo cambió todo.", o_e2:"Parte 2 · La oficina contraataca.",
+    o_team_eye:"Quién lo hizo", o_team_title:"Un equipo de tres",
+    o_team_lead:"Tres integrantes que se repartieron la dirección, la adaptación del guion y la actuación — haciéndolo mejor de lo que pedía la tarea.",
+    o_r1t:"Dirección", o_r1d:"Puesta en escena y ritmo cómico.",
+    o_r2t:"Adaptación de guion", o_r2d:"Del concepto académico al humor de oficina.",
+    o_r3t:"Actuación", o_r3d:"Los personajes que dan vida al PESTELE.",
+    o_note_t:"Un proyecto académico, hecho en serio (y en broma)",
+    o_note_p:"Producido para una asignatura de la Universidad Iberoamericana, sin fines comerciales. Lo tomamos como excusa para experimentar con la comedia y empujar un poco más allá de lo que la entrega pedía.",
+    o_back:"Proyectos académicos",
+  },
+  en: {
+    crumb:"Academic projects", o_tag:"Mockumentary · IBERO",
+    o_sub:"A The Office-style mini-series produced by TroubleMovies as an academic project for Universidad Iberoamericana.",
+    o_m1:"University", o_m2:"Episodes", o_m3:"Genre", o_m3v:"Comedy", o_watch:"▶ Watch the episode",
+    o_v_kick:"Full episode",
+    o_p1:"Welcome to the full episode of <b>\"El PESTELE que nos arruinó el día\" + \"Part 2: Administraviesos\"</b>: a The Office-style mini-series that mixes humor with administration concepts.",
+    o_p2:"It all revolves around a boss who invents nonsensical terms — starting with the legendary <span class=\"pestele\">PESTELE</span> — and an office trying to survive his ideas.",
+    o_ep_eye:"The episodes", o_ep_title:"Two parts, one office",
+    o_e1:"Part 1 · The term that changed everything.", o_e2:"Part 2 · The office strikes back.",
+    o_team_eye:"Who made it", o_team_title:"A team of three",
+    o_team_lead:"Three members who split direction, script adaptation and acting — making it better than the assignment asked for.",
+    o_r1t:"Direction", o_r1d:"Staging and comedic timing.",
+    o_r2t:"Script adaptation", o_r2d:"From the academic brief to office humor.",
+    o_r3t:"Acting", o_r3d:"The characters that bring the PESTELE to life.",
+    o_note_t:"An academic project, made seriously (and as a joke)",
+    o_note_p:"Produced for a course at Universidad Iberoamericana, with no commercial intent. We took it as an excuse to experiment with comedy and push a little past what the assignment required.",
+    o_back:"Academic projects",
+  }
+};
+</script>
+<script src="script.js"></script>
+</body>
+</html>

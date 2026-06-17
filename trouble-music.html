@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Trouble Music Group (TMMG) — TroubleMovies Productions</title>
+<meta name="description" content="TMMG, la división de TroubleMovies especializada en videos musicales y proyectos artísticos. Te acompañamos de la idea a la entrega final con identidad propia." />
+<meta name="theme-color" content="#07040d" />
+<meta property="og:title" content="Trouble Music Group — TMMG" />
+<meta property="og:description" content="Videos musicales y proyectos artísticos con identidad propia." />
+<meta property="og:image" content="assets/yt-mezcal.jpg" />
+
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="pages.css" />
+<style>
+  .tmmg-hero{ background:radial-gradient(120% 100% at 75% 10%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 55%),radial-gradient(90% 80% at 10% 90%,color-mix(in srgb,var(--accent-2) 26%,transparent),transparent 55%),var(--bg); }
+  .tmmg-wave{ position:absolute; inset:auto 0 0 0; height:42%; z-index:1; opacity:.5; pointer-events:none;
+    background:repeating-linear-gradient(90deg,transparent 0 10px,color-mix(in srgb,var(--accent) 30%,transparent) 10px 11px); -webkit-mask-image:linear-gradient(transparent,#000); mask-image:linear-gradient(transparent,#000); }
+  .bars{ display:flex; align-items:flex-end; gap:5px; height:30px; }
+  .bars i{ width:5px; background:var(--grad-page); border-radius:3px; animation:eq 1.1s ease-in-out infinite; }
+  .bars i:nth-child(1){ animation-delay:0s } .bars i:nth-child(2){ animation-delay:.18s } .bars i:nth-child(3){ animation-delay:.36s } .bars i:nth-child(4){ animation-delay:.1s } .bars i:nth-child(5){ animation-delay:.28s }
+  @keyframes eq{ 0%,100%{ height:8px } 50%{ height:30px } }
+  @media (prefers-reduced-motion:reduce){ .bars i{ animation:none; height:18px } }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__eyes"><span></span><span></span></div>
+  <img class="loader__logo" src="assets/logo-tm.png" alt="TroubleMovies" />
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="brand magnetic" aria-label="TroubleMovies inicio"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
+    <a href="index.html" data-i18n="nav_home">Inicio</a>
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="trouble-music.html" data-i18n="nav_tmmg">TMMG</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="nav__right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma"><span class="lang__on">ES</span><span class="lang__off">EN</span></button>
+    <a class="nav__ig magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.83.92 1.4.17.42.36 1.06.42 2.25.05 1.28.06 1.66.06 4.86s-.01 3.58-.07 4.85c-.06 1.2-.25 1.83-.42 2.25a3.8 3.8 0 0 1-.9 1.4c-.42.43-.83.7-1.4.92-.42.17-1.06.36-2.25.42-1.28.05-1.66.06-4.86.06s-3.58-.01-4.85-.07c-1.2-.06-1.83-.25-2.25-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.92-1.4c-.17-.42-.36-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.58.07-4.85c.06-1.2.25-1.83.42-2.25.22-.57.49-1 .9-1.42a3.8 3.8 0 0 1 1.42-.9c.42-.17 1.05-.36 2.25-.42C8.42 2.21 8.8 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.18.4-.55.21-.94.47-1.35.88-.4.4-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.18-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.18.21.55.47.94.88 1.35.41.4.8.66 1.35.88.42.16 1.04.35 2.18.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.18-.4.55-.22.94-.48 1.35-.88.4-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.18.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.18-.4-1.24-.06-1.59-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 7.34a2.89 2.89 0 1 0 0-5.78 2.89 2.89 0 0 0 0 5.78Zm5.66-7.5a1.04 1.04 0 1 1-2.08 0 1.04 1.04 0 0 1 2.08 0Z"/></svg></a>
+    <a href="index.html#contact" class="btn btn--sm magnetic" data-i18n="nav_cta">Cuéntanos tu proyecto</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="page" id="top" style="--accent:#ff5c8a; --accent-2:#b98cff;">
+
+  <!-- HERO -->
+  <section class="phero tmmg-hero">
+    <div class="tmmg-wave"></div>
+    <div class="phero__grain"></div>
+    <div class="phero__inner">
+      <div class="phero__kicker">
+        <a href="index.html" class="crumb magnetic"><i>←</i><span data-i18n="crumb">Inicio</span></a>
+        <span class="tagchip" data-i18n="m_tag">Música &amp; arte</span>
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <h1 class="phero__title">TROUBLE <em>MUSIC</em> GROUP</h1>
+      <p class="phero__sub" data-i18n="m_sub">La división de TroubleMovies especializada en videos musicales y proyectos artísticos. Hacemos tus ideas realidad.</p>
+      <div class="phero__cta">
+        <a class="btn magnetic" href="index.html#contact" data-i18n="m_cta">Contactar a TMMG</a>
+        <a class="btn btn--ghost magnetic" href="#hacemos" data-i18n="m_cta2">Qué hacemos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO -->
+  <section class="sec wrap wrap--narrow">
+    <div class="sec__head sec__head--center reveal">
+      <p class="eyebrow"><span data-i18n="m_intro_eye">Hacemos tus ideas realidad</span></p>
+      <h2 class="sec__title" data-i18n="m_intro_title">Tu música merece una imagen a su altura.</h2>
+    </div>
+    <div class="prose prose--lg reveal" style="text-align:center">
+      <p data-i18n="m_intro1">Te acompañamos en cada etapa de tu proyecto musical, desde la idea inicial hasta la entrega final. Nos encargamos de transformar tu visión en una pieza audiovisual <b>sólida, cuidada y con identidad propia</b>.</p>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="sec wrap" id="hacemos">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="m_do_eye">Qué hacemos</span></p>
+      <h2 class="sec__title" data-i18n="m_do_title">Producción integral para artistas</h2>
+    </div>
+    <div class="tiles">
+      <div class="tile reveal"><div class="tile__bg tile__bg--solid"></div><div class="tile__body"><div class="tile__cat">01</div><div class="tile__name" data-i18n="m_d1t">Video musical</div><div class="tile__desc" data-i18n="m_d1d">Del concepto al máster final: dirección, rodaje y edición pensados para tu canción.</div></div></div>
+      <div class="tile reveal"><div class="tile__bg tile__bg--solid"></div><div class="tile__body"><div class="tile__cat">02</div><div class="tile__name" data-i18n="m_d2t">Concepto y dirección de arte</div><div class="tile__desc" data-i18n="m_d2d">Construimos un mundo visual coherente con tu identidad como artista.</div></div></div>
+      <div class="tile reveal"><div class="tile__bg tile__bg--solid"></div><div class="tile__body"><div class="tile__cat">03</div><div class="tile__name" data-i18n="m_d3t">Contenido para redes</div><div class="tile__desc" data-i18n="m_d3d">Teasers, performances y clips verticales para lanzar y sostener tu release.</div></div></div>
+      <div class="tile reveal"><div class="tile__bg tile__bg--solid"></div><div class="tile__body"><div class="tile__cat">04</div><div class="tile__name" data-i18n="m_d4t">Post-producción y color</div><div class="tile__desc" data-i18n="m_d4d">Edición, colorización y sonido para que cada cuadro se sienta profesional.</div></div></div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="sec wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="m_pr_eye">Tu proyecto, paso a paso</span></p>
+      <h2 class="sec__title" data-i18n="m_pr_title">De la idea a la entrega</h2>
+    </div>
+    <div class="crew">
+      <div class="crew__item reveal"><div class="crew__avatar">01</div><div class="crew__name" data-i18n="m_s1t">Conversamos</div><div class="crew__role" data-i18n="m_s1d" style="color:var(--muted)">Escuchamos la canción y tu visión.</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">02</div><div class="crew__name" data-i18n="m_s2t">Concepto</div><div class="crew__role" data-i18n="m_s2d" style="color:var(--muted)">Tratamiento visual y plan de rodaje.</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">03</div><div class="crew__name" data-i18n="m_s3t">Producimos</div><div class="crew__role" data-i18n="m_s3d" style="color:var(--muted)">Rodaje y dirección cuidando cada detalle.</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">04</div><div class="crew__name" data-i18n="m_s4t">Entregamos</div><div class="crew__role" data-i18n="m_s4d" style="color:var(--muted)">Edición, color y sonido listos para publicar.</div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="sec wrap wrap--narrow">
+    <div class="callout reveal" style="text-align:center">
+      <h2 class="callout__title" style="margin-inline:auto" data-i18n="m_cta_title">¿Tienes una canción que merece imagen?</h2>
+      <p style="margin-inline:auto" data-i18n="m_cta_p">Cuéntanos tu proyecto musical y lo llevamos de la idea a la pantalla.</p>
+      <div style="margin-top:1.8rem"><a class="btn magnetic" href="index.html#contact" data-i18n="m_cta">Contactar a TMMG</a></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__cta"><a href="index.html#contact" class="footer__big" data-i18n="footer_big">Hagamos algo memorable →</a></div>
+  <div class="footer__top">
+    <a href="index.html" class="brand brand--lg magnetic"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+    <p class="footer__tag" data-i18n="footer_tag">Historias que valen la pena.</p>
+  </div>
+  <div class="footer__links">
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+    <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> TroubleMovies Productions®</span>
+    <span class="footer__deer">✦</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
+  <p class="lightbox__title" id="lightboxTitle"></p>
+</div>
+
+<script>
+window.PAGE_I18N = {
+  es: {
+    crumb:"Inicio", m_tag:"Música & arte",
+    m_sub:"La división de TroubleMovies especializada en videos musicales y proyectos artísticos. Hacemos tus ideas realidad.",
+    m_cta:"Contactar a TMMG", m_cta2:"Qué hacemos",
+    m_intro_eye:"Hacemos tus ideas realidad", m_intro_title:"Tu música merece una imagen a su altura.",
+    m_intro1:"Te acompañamos en cada etapa de tu proyecto musical, desde la idea inicial hasta la entrega final. Nos encargamos de transformar tu visión en una pieza audiovisual <b>sólida, cuidada y con identidad propia</b>.",
+    m_do_eye:"Qué hacemos", m_do_title:"Producción integral para artistas",
+    m_d1t:"Video musical", m_d1d:"Del concepto al máster final: dirección, rodaje y edición pensados para tu canción.",
+    m_d2t:"Concepto y dirección de arte", m_d2d:"Construimos un mundo visual coherente con tu identidad como artista.",
+    m_d3t:"Contenido para redes", m_d3d:"Teasers, performances y clips verticales para lanzar y sostener tu release.",
+    m_d4t:"Post-producción y color", m_d4d:"Edición, colorización y sonido para que cada cuadro se sienta profesional.",
+    m_pr_eye:"Tu proyecto, paso a paso", m_pr_title:"De la idea a la entrega",
+    m_s1t:"Conversamos", m_s1d:"Escuchamos la canción y tu visión.",
+    m_s2t:"Concepto", m_s2d:"Tratamiento visual y plan de rodaje.",
+    m_s3t:"Producimos", m_s3d:"Rodaje y dirección cuidando cada detalle.",
+    m_s4t:"Entregamos", m_s4d:"Edición, color y sonido listos para publicar.",
+    m_cta_title:"¿Tienes una canción que merece imagen?", m_cta_p:"Cuéntanos tu proyecto musical y lo llevamos de la idea a la pantalla.",
+  },
+  en: {
+    crumb:"Home", m_tag:"Music & art",
+    m_sub:"TroubleMovies' division for music videos and artistic projects. We turn your ideas into reality.",
+    m_cta:"Contact TMMG", m_cta2:"What we do",
+    m_intro_eye:"We turn your ideas into reality", m_intro_title:"Your music deserves visuals to match.",
+    m_intro1:"We walk with you through every stage of your music project, from the first idea to final delivery. We turn your vision into an audiovisual piece that is <b>solid, crafted and unmistakably yours</b>.",
+    m_do_eye:"What we do", m_do_title:"Full production for artists",
+    m_d1t:"Music video", m_d1d:"From concept to final master: direction, shooting and editing built around your song.",
+    m_d2t:"Concept & art direction", m_d2d:"We build a visual world that's coherent with your identity as an artist.",
+    m_d3t:"Social content", m_d3d:"Teasers, performances and vertical clips to launch and sustain your release.",
+    m_d4t:"Post-production & color", m_d4d:"Editing, color grading and sound so every frame feels professional.",
+    m_pr_eye:"Your project, step by step", m_pr_title:"From idea to delivery",
+    m_s1t:"We talk", m_s1d:"We listen to the song and your vision.",
+    m_s2t:"Concept", m_s2d:"Visual treatment and shooting plan.",
+    m_s3t:"We produce", m_s3d:"Shooting and direction, caring for every detail.",
+    m_s4t:"We deliver", m_s4d:"Editing, color and sound ready to publish.",
+    m_cta_title:"Got a song that deserves visuals?", m_cta_p:"Tell us about your music project and we'll take it from idea to screen.",
+  }
+};
+</script>
+<script src="script.js"></script>
+</body>
+</html>

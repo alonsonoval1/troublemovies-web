@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Política de Privacidad — TroubleMovies Productions</title>
+<meta name="description" content="Política de Privacidad de TroubleMovies Productions®. Cómo recopilamos, usamos y protegemos tus datos personales conforme a la LFPDPPP." />
+<meta name="theme-color" content="#07040d" />
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__eyes"><span></span><span></span></div>
+  <img class="loader__logo" src="assets/logo-tm.png" alt="TroubleMovies" />
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="brand magnetic" aria-label="TroubleMovies inicio"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
+    <a href="index.html" data-i18n="nav_home">Inicio</a>
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="trouble-music.html" data-i18n="nav_tmmg">TMMG</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="nav__right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma"><span class="lang__on">ES</span><span class="lang__off">EN</span></button>
+    <a class="nav__ig magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.83.92 1.4.17.42.36 1.06.42 2.25.05 1.28.06 1.66.06 4.86s-.01 3.58-.07 4.85c-.06 1.2-.25 1.83-.42 2.25a3.8 3.8 0 0 1-.9 1.4c-.42.43-.83.7-1.4.92-.42.17-1.06.36-2.25.42-1.28.05-1.66.06-4.86.06s-3.58-.01-4.85-.07c-1.2-.06-1.83-.25-2.25-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.92-1.4c-.17-.42-.36-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.58.07-4.85c.06-1.2.25-1.83.42-2.25.22-.57.49-1 .9-1.42a3.8 3.8 0 0 1 1.42-.9c.42-.17 1.05-.36 2.25-.42C8.42 2.21 8.8 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.18.4-.55.21-.94.47-1.35.88-.4.4-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.18-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.18.21.55.47.94.88 1.35.41.4.8.66 1.35.88.42.16 1.04.35 2.18.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.18-.4.55-.22.94-.48 1.35-.88.4-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.18.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.18-.4-1.24-.06-1.59-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 7.34a2.89 2.89 0 1 0 0-5.78 2.89 2.89 0 0 0 0 5.78Zm5.66-7.5a1.04 1.04 0 1 1-2.08 0 1.04 1.04 0 0 1 2.08 0Z"/></svg></a>
+    <a href="index.html#contact" class="btn btn--sm magnetic" data-i18n="nav_cta">Cuéntanos tu proyecto</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="page" id="top" style="--accent:#b98cff; --accent-2:#9a8fb4;">
+
+  <section class="phero" style="min-height:46vh; align-items:flex-end">
+    <div class="phero__bg" style="background:radial-gradient(100% 90% at 80% 0%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 55%),var(--bg)"></div>
+    <div class="phero__grain"></div>
+    <div class="phero__inner">
+      <div class="phero__kicker"><a href="index.html" class="crumb magnetic"><i>←</i><span>Inicio</span></a></div>
+      <h1 class="phero__title" style="font-size:clamp(2.2rem,6vw,4.2rem)">Política de Privacidad</h1>
+      <p class="upd" style="margin-top:1rem">Última actualización: Octubre 2025</p>
+    </div>
+  </section>
+
+  <section class="sec wrap wrap--narrow legal">
+    <p>En <b>TroubleMovies Productions®</b>, con domicilio en Cuernavaca, Morelos, México, respetamos y protegemos la privacidad de nuestros clientes, colaboradores y visitantes del sitio web www.troublemovies.com. Este aviso explica cómo recopilamos, utilizamos, protegemos y compartimos la información personal que nos proporcionas.</p>
+
+    <h3>1. Responsable del tratamiento de datos personales</h3>
+    <p>TroubleMovies Productions® (en adelante "TroubleMovies") es responsable del uso y protección de tus datos personales, conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP). Puedes contactarnos a través de nuestro correo oficial: <a href="mailto:troublemoviesproductions@gmail.com" style="color:var(--accent)">troublemoviesproductions@gmail.com</a></p>
+
+    <h3>2. Datos personales que podemos recopilar</h3>
+    <p>Podemos obtener los siguientes datos personales cuando interactúas con nuestros servicios o sitio web:</p>
+    <p>— Nombre completo<br>— Correo electrónico y número telefónico<br>— Información de contacto para cotizaciones o proyectos<br>— Redes sociales o referencias de medios audiovisuales que compartas<br>— Información de facturación o pago (solo cuando sea necesario para la contratación de servicios)</p>
+    <p>No solicitamos datos personales sensibles, como origen étnico, creencias religiosas, estado de salud o información biométrica.</p>
+
+    <h3>3. Finalidades del tratamiento de datos</h3>
+    <p>Utilizamos tus datos personales para las siguientes finalidades principales:</p>
+    <p>— Proveer los servicios audiovisuales contratados (producción, edición y entrega de contenido).<br>— Elaborar presupuestos, cotizaciones y contratos de servicios.<br>— Mantener comunicación directa sobre proyectos, grabaciones y entregas.<br>— Cumplir obligaciones legales, fiscales o administrativas.<br>— Enviar información relevante sobre proyectos, estrenos o promociones relacionadas con TroubleMovies.</p>
+    <p>Y para finalidades secundarias, siempre opcionales:</p>
+    <p>— Enviar contenido promocional, newsletters o actualizaciones de marca.<br>— Usar imágenes o fragmentos de video (previa autorización) como parte del portafolio audiovisual.</p>
+    <p>En caso de que no desees que tus datos se utilicen para finalidades secundarias, puedes manifestarlo en cualquier momento escribiendo a nuestro correo oficial.</p>
+
+    <h3>4. Protección y almacenamiento de la información</h3>
+    <p>TroubleMovies adopta medidas técnicas, administrativas y físicas para proteger tus datos personales contra daño, pérdida, alteración, destrucción o acceso no autorizado. La información es almacenada de manera segura en servidores y plataformas certificadas, y solo el personal autorizado tiene acceso a ella.</p>
+
+    <h3>5. Transferencia de datos personales</h3>
+    <p>No compartimos ni vendemos tus datos personales a terceros. Solo podremos transferir información cuando sea necesario para:</p>
+    <p>— Cumplir con obligaciones legales o fiscales.<br>— Colaborar con proveedores de servicios tecnológicos (por ejemplo, almacenamiento en la nube o plataformas de pago), quienes también cumplen con la ley mexicana de protección de datos.</p>
+
+    <h3>6. Derechos ARCO (Acceso, Rectificación, Cancelación y Oposición)</h3>
+    <p>Tienes derecho a acceder, rectificar, cancelar u oponerte al uso de tus datos personales, así como revocar tu consentimiento. Para ejercer estos derechos, envía una solicitud a nuestro correo oficial, incluyendo tu nombre completo, descripción del derecho que deseas ejercer y una identificación válida. Responderemos tu solicitud en un plazo máximo de 15 días hábiles.</p>
+
+    <h3>7. Uso de cookies y tecnologías similares</h3>
+    <p>El sitio www.troublemovies.com utiliza cookies y herramientas analíticas para mejorar la experiencia del usuario. Estas tecnologías permiten reconocer tu dispositivo, recordar tus preferencias y analizar el tráfico del sitio. Puedes deshabilitar las cookies desde tu navegador en cualquier momento.</p>
+
+    <h3>8. Cambios en este aviso de privacidad</h3>
+    <p>TroubleMovies se reserva el derecho de actualizar este aviso en cualquier momento. Cualquier cambio será publicado en www.troublemovies.com/privacidad con la fecha de última modificación visible al inicio del documento.</p>
+
+    <h3>9. Aceptación de términos</h3>
+    <p>Al usar nuestros servicios o navegar en nuestro sitio web, aceptas los términos del presente Aviso de Privacidad. Si no estás de acuerdo, te recomendamos abstenerte de proporcionar tus datos personales.</p>
+
+    <hr class="rule" />
+    <p class="upd">© 2025 TroubleMovies Productions®. Marca registrada ante el Instituto Mexicano de la Propiedad Industrial (IMPI). Todos los derechos reservados.</p>
+    <p style="margin-top:1.4rem"><a href="legal.html" class="btn btn--ghost btn--sm magnetic" data-i18n="pv_seelegal">Ver Aviso Legal</a></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__top" style="padding-top:0">
+    <a href="index.html" class="brand brand--lg magnetic"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+    <p class="footer__tag" data-i18n="footer_tag">Historias que valen la pena.</p>
+  </div>
+  <div class="footer__links">
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="privacidad.html" data-i18n="pv_priv">Privacidad</a>
+    <a href="legal.html" data-i18n="pv_legal">Aviso Legal</a>
+    <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> TroubleMovies Productions®</span>
+    <span class="footer__deer">✦</span>
+  </div>
+</footer>
+
+<script>
+window.PAGE_I18N = {
+  es: { pv_seelegal:"Ver Aviso Legal", pv_priv:"Privacidad", pv_legal:"Aviso Legal" },
+  en: { pv_seelegal:"See Legal Notice", pv_priv:"Privacy", pv_legal:"Legal Notice" }
+};
+</script>
+<script src="script.js"></script>
+</body>
+</html>

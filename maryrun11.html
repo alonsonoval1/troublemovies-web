@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>MARYRUN XI — TroubleMovies Productions</title>
+<meta name="description" content="Cobertura multicámara de la carrera MARYRUN XI: transmisión en vivo, podios de las carreras 5KM y 2KM, fotos, reels y el equipo detrás del evento." />
+<meta name="theme-color" content="#07040d" />
+<meta property="og:title" content="MARYRUN XI — TroubleMovies" />
+<meta property="og:description" content="Cobertura multicámara en vivo + recap de la carrera MARYRUN XI." />
+<meta property="og:image" content="assets/maryrun-hero.jpg" />
+
+<link rel="icon" href="assets/favicon.png" type="image/png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="pages.css" />
+<style>
+  /* MARYRUN — page-specific */
+  .seg{ display:inline-flex; padding:4px; border:1px solid var(--line-2); border-radius:100px; background:var(--bg-card); gap:2px; }
+  .seg button{ font-family:var(--mono); font-size:.8rem; letter-spacing:.06em; color:var(--muted); background:none; border:none; padding:.5rem 1.1rem; border-radius:100px; transition:.3s; }
+  .seg button.on{ color:#0a0710; background:var(--grad-page); }
+  .cams.is-recap .cam__live i{ animation:none; background:var(--muted-dim); box-shadow:none; }
+  .cams.is-recap .cam__live span{ display:none; }
+  .cams.is-recap .live-only{ display:none; }
+  .cams:not(.is-recap) .recap-only{ display:none; }
+  .toast{ position:fixed; left:50%; bottom:2rem; transform:translate(-50%,140%); z-index:9500; background:var(--bg-card); border:1px solid var(--line-2);
+    color:var(--ink); font-family:var(--mono); font-size:.85rem; padding:.85rem 1.3rem; border-radius:100px; box-shadow:0 20px 50px -20px #000; transition:transform .5s var(--ease); }
+  .toast.show{ transform:translate(-50%,0); }
+  .sponsors{ overflow:hidden; border-block:1px solid var(--line); padding:1.4rem 0; background:var(--bg-soft); }
+  .sponsors__track{ display:flex; gap:2.6rem; width:max-content; animation:scroll-x 38s linear infinite; }
+  .sponsors__track span{ font-family:var(--display); font-weight:600; font-size:clamp(1.1rem,2.4vw,1.7rem); color:var(--muted); white-space:nowrap; transition:color .3s; }
+  .sponsors__track span:hover{ color:var(--accent); }
+  .sponsors:hover .sponsors__track{ animation-play-state:paused; }
+  .racewrap{ display:grid; gap:clamp(2.4rem,5vw,4rem); }
+  .race__name{ font-family:var(--mono); font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; color:var(--accent); margin-bottom:1.6rem; display:flex; align-items:center; gap:.7rem; }
+  .race__name::before{ content:""; width:30px; height:1px; background:var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__eyes"><span></span><span></span></div>
+  <img class="loader__logo" src="assets/logo-tm.png" alt="TroubleMovies" />
+  <div class="loader__bar"><i></i></div>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__label" id="cursorLabel"></span></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="brand magnetic" aria-label="TroubleMovies inicio"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+  <nav class="nav__links" id="navLinks" aria-label="Principal">
+    <a href="index.html" data-i18n="nav_home">Inicio</a>
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="trouble-music.html" data-i18n="nav_tmmg">TMMG</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="nav__right">
+    <button class="lang" id="langBtn" aria-label="Cambiar idioma"><span class="lang__on">ES</span><span class="lang__off">EN</span></button>
+    <a class="nav__ig magnetic" href="https://instagram.com/troublemovies" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.8.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.83.92 1.4.17.42.36 1.06.42 2.25.05 1.28.06 1.66.06 4.86s-.01 3.58-.07 4.85c-.06 1.2-.25 1.83-.42 2.25a3.8 3.8 0 0 1-.9 1.4c-.42.43-.83.7-1.4.92-.42.17-1.06.36-2.25.42-1.28.05-1.66.06-4.86.06s-3.58-.01-4.85-.07c-1.2-.06-1.83-.25-2.25-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.92-1.4c-.17-.42-.36-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.58.07-4.85c.06-1.2.25-1.83.42-2.25.22-.57.49-1 .9-1.42a3.8 3.8 0 0 1 1.42-.9c.42-.17 1.05-.36 2.25-.42C8.42 2.21 8.8 2.2 12 2.2Zm0 1.98c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.18.4-.55.21-.94.47-1.35.88-.4.4-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.18-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.18.21.55.47.94.88 1.35.41.4.8.66 1.35.88.42.16 1.04.35 2.18.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.18-.4.55-.22.94-.48 1.35-.88.4-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.18.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.18a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.18-.4-1.24-.06-1.59-.07-4.74-.07Zm0 3.37a4.45 4.45 0 1 1 0 8.9 4.45 4.45 0 0 1 0-8.9Zm0 7.34a2.89 2.89 0 1 0 0-5.78 2.89 2.89 0 0 0 0 5.78Zm5.66-7.5a1.04 1.04 0 1 1-2.08 0 1.04 1.04 0 0 1 2.08 0Z"/></svg></a>
+    <a href="index.html#contact" class="btn btn--sm magnetic" data-i18n="nav_cta">Cuéntanos tu proyecto</a>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="page" id="top" style="--accent:#54e0a0; --accent-2:#42b8ff;">
+
+  <!-- HERO (video) -->
+  <section class="phero">
+    <div class="phero__bg"><video src="assets/maryrun-hero.mp4" poster="assets/maryrun-hero.jpg" autoplay muted loop playsinline></video></div>
+    <div class="phero__grain"></div>
+    <div class="phero__inner">
+      <div class="phero__kicker">
+        <a href="proyectos.html" class="crumb magnetic"><i>←</i><span data-i18n="crumb">Proyectos</span></a>
+        <span class="tagchip" data-i18n="r_tag">Cobertura en vivo</span>
+      </div>
+      <h1 class="phero__title">MARY<em>RUN</em> XI</h1>
+      <p class="phero__sub" data-i18n="r_sub">Cobertura audiovisual completa de la carrera: transmisión multicámara en vivo, podios, fotos y reels del evento.</p>
+      <div class="phero__meta">
+        <span><b data-i18n="r_m1v">Enero 2026</b> <span data-i18n="r_m1">Fecha</span></span><span class="dot">·</span>
+        <span><b>5KM &amp; 2KM</b> <span data-i18n="r_m2">Carreras</span></span><span class="dot">·</span>
+        <span><b>6</b> <span data-i18n="r_m3">Cámaras</span></span>
+      </div>
+      <div class="phero__cta">
+        <a class="btn magnetic" href="#camaras" data-i18n="r_cta1">Cámaras en vivo</a>
+        <a class="btn btn--ghost magnetic" href="#podios" data-i18n="r_cta2">Ver podios</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMERAS -->
+  <section class="sec wrap" id="camaras">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="r_cam_eye">Cobertura multicámara</span></p>
+      <h2 class="sec__title" data-i18n="r_cam_title">Todos los ángulos del evento</h2>
+      <p class="sec__lead" data-i18n="r_cam_lead">Tres puntos de cámara cubriendo la carrera en tiempo real. Cambia entre la transmisión en vivo y el recap grabado.</p>
+      <div style="margin-top:1.6rem">
+        <div class="seg" id="camSeg" role="tablist">
+          <button class="on" data-mode="recap" data-i18n="r_seg_recap">Recap</button>
+          <button data-mode="live" data-i18n="r_seg_live">En vivo</button>
+        </div>
+      </div>
+    </div>
+    <div class="cams is-recap" id="cams">
+      <div class="cam reveal">
+        <div class="cam__top"><img src="assets/maryrun-hero.jpg" alt="Cámara 1" /><span class="cam__live"><i></i><span>EN VIVO</span></span></div>
+        <div class="cam__body">
+          <div class="cam__name" data-i18n="r_c1">Cámara 1 · Meta</div>
+          <div class="cam__desc" data-i18n="r_c1d">En la línea de meta. Operada por Miranda Sotelo.</div>
+          <button class="btn btn--sm cam__btn magnetic live-only" data-stream=""><span data-i18n="r_watch_live">▶ Ver en vivo</span></button>
+          <a class="btn btn--sm btn--ghost cam__btn magnetic recap-only" href="https://drive.google.com/drive/folders/11b7lvvnaCv11ZWG-Pfq9cl98BVrPWfCD?usp=sharing" target="_blank" rel="noopener"><span data-i18n="r_watch_recap">Ver grabación</span></a>
+        </div>
+      </div>
+      <div class="cam reveal">
+        <div class="cam__top"><img src="assets/maryrun-hero.jpg" alt="Cámara 2" style="object-position:70% 50%" /><span class="cam__live"><i></i><span>EN VIVO</span></span></div>
+        <div class="cam__body">
+          <div class="cam__name" data-i18n="r_c2">Cámara 2 · Km 1</div>
+          <div class="cam__desc" data-i18n="r_c2d">En el kilómetro 1. Operada por Jolie Contreras.</div>
+          <button class="btn btn--sm cam__btn magnetic live-only" data-stream=""><span data-i18n="r_watch_live">▶ Ver en vivo</span></button>
+          <a class="btn btn--sm btn--ghost cam__btn magnetic recap-only" href="https://drive.google.com/drive/folders/11b7lvvnaCv11ZWG-Pfq9cl98BVrPWfCD?usp=sharing" target="_blank" rel="noopener"><span data-i18n="r_watch_recap">Ver grabación</span></a>
+        </div>
+      </div>
+      <div class="cam reveal">
+        <div class="cam__top"><img src="assets/maryrun-hero.jpg" alt="Cámara 3" style="object-position:30% 50%" /><span class="cam__live"><i></i><span>EN VIVO</span></span></div>
+        <div class="cam__body">
+          <div class="cam__name" data-i18n="r_c3">Cámara 3 · Entrevistas</div>
+          <div class="cam__desc" data-i18n="r_c3d">Cámara de entrevistas. Operada por Alonso Noval.</div>
+          <button class="btn btn--sm cam__btn magnetic live-only" data-stream=""><span data-i18n="r_watch_live">▶ Ver en vivo</span></button>
+          <a class="btn btn--sm btn--ghost cam__btn magnetic recap-only" href="https://drive.google.com/drive/folders/11b7lvvnaCv11ZWG-Pfq9cl98BVrPWfCD?usp=sharing" target="_blank" rel="noopener"><span data-i18n="r_watch_recap">Ver grabación</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PODIUMS -->
+  <section class="sec wrap" id="podios">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="r_pod_eye">Resultados</span></p>
+      <h2 class="sec__title" data-i18n="r_pod_title">Los podios</h2>
+    </div>
+    <div class="racewrap">
+      <div class="reveal">
+        <div class="race__name" data-i18n="r_race1">Carrera 5 KM</div>
+        <div class="podium">
+          <div class="pod pod--2"><div class="pod__medal">🥈</div><div class="pod__pos">2</div><div class="pod__name">Samuel Barón</div><div class="pod__cat" data-i18n="r_race1">Carrera 5 KM</div></div>
+          <div class="pod pod--1"><div class="pod__medal">🥇</div><div class="pod__pos">1</div><div class="pod__name">Estéfano López</div><div class="pod__cat" data-i18n="r_race1">Carrera 5 KM</div></div>
+          <div class="pod pod--3"><div class="pod__medal">🥉</div><div class="pod__pos">3</div><div class="pod__name">Erick Espinosa</div><div class="pod__cat" data-i18n="r_race1">Carrera 5 KM</div></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="race__name" data-i18n="r_race2">Carrera 2 KM</div>
+        <div class="podium">
+          <div class="pod pod--2"><div class="pod__medal">🥈</div><div class="pod__pos">2</div><div class="pod__name">Luciano Mora</div><div class="pod__cat" data-i18n="r_race2">Carrera 2 KM</div></div>
+          <div class="pod pod--1"><div class="pod__medal">🥇</div><div class="pod__pos">1</div><div class="pod__name">Adli Reyes</div><div class="pod__cat" data-i18n="r_race2">Carrera 2 KM</div></div>
+          <div class="pod pod--3"><div class="pod__medal">🥉</div><div class="pod__pos">3</div><div class="pod__name">Luis Serrano</div><div class="pod__cat" data-i18n="r_race2">Carrera 2 KM</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECAP MEDIA -->
+  <section class="sec wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="r_media_eye">Revive el evento</span></p>
+      <h2 class="sec__title" data-i18n="r_media_title">Fotos y reels</h2>
+    </div>
+    <div class="linkrow">
+      <a class="linkcard reveal magnetic" href="https://drive.google.com/drive/folders/1Jsk9e9qF9EszO9kZHnIEyn_B0ZmAwIBd?usp=share_link" target="_blank" rel="noopener">
+        <span class="linkcard__ic">📸</span>
+        <div><div class="linkcard__t" data-i18n="r_photos_t">Fotos del evento</div><div class="linkcard__d" data-i18n="r_photos_d">Galería completa del día de la carrera.</div></div>
+        <span class="linkcard__go">↗</span>
+      </a>
+      <a class="linkcard reveal magnetic" href="https://drive.google.com/drive/folders/11b7lvvnaCv11ZWG-Pfq9cl98BVrPWfCD?usp=sharing" target="_blank" rel="noopener">
+        <span class="linkcard__ic">🎬</span>
+        <div><div class="linkcard__t" data-i18n="r_reels_t">Reels y videos adicionales</div><div class="linkcard__d" data-i18n="r_reels_d">Clips, momentos y contenido para redes.</div></div>
+        <span class="linkcard__go">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="sec wrap">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="r_team_eye">Detrás de cámara</span></p>
+      <h2 class="sec__title" data-i18n="r_team_title">El equipo del evento</h2>
+    </div>
+    <div class="crew">
+      <div class="crew__item reveal"><div class="crew__avatar">AN</div><div class="crew__name">Alonso Noval</div><div class="crew__role" data-i18n="r_t1">Cámara 3 y supervisión</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">EG</div><div class="crew__name">Emilia García</div><div class="crew__role" data-i18n="r_t2">Cámara 1 y supervisión</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">MS</div><div class="crew__name">Miranda Sotelo</div><div class="crew__role" data-i18n="r_t3">Cámara 2 y supervisión</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">JC</div><div class="crew__name">Jolie Contreras</div><div class="crew__role" data-i18n="r_t4">Cámara 4 móvil</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">NA</div><div class="crew__name">Nicolás Alcántara</div><div class="crew__role" data-i18n="r_t5">Cámara 5 móvil</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">OM</div><div class="crew__name">Oliver Martin</div><div class="crew__role" data-i18n="r_t6">Informes y supervisión</div></div>
+      <div class="crew__item reveal"><div class="crew__avatar">NS</div><div class="crew__name">Nathalie Sauque</div><div class="crew__role" data-i18n="r_t7">Cámara 6 móvil</div></div>
+    </div>
+  </section>
+
+  <!-- SPONSORS -->
+  <div class="sec--tight">
+    <div class="wrap"><div class="sec__head sec__head--center reveal" style="margin-bottom:1.6rem"><p class="eyebrow"><span data-i18n="r_sp_eye">Gracias a nuestros patrocinadores</span></p></div></div>
+    <div class="sponsors" aria-hidden="true">
+      <div class="sponsors__track">
+        <span>JDM</span><span>Cygnus</span><span>Dalefon</span><span>Token Toys</span><span>Floristería Vista Hermosa</span><span>Dralexa</span><span>COROC</span><span>Casas ARA</span><span>Jetour</span><span>Jennifer Pérez</span><span>Santa María</span><span>Hoshi</span><span>Gusto</span><span>Electrolit</span><span>Tubo Hotel</span><span>Foto Viena</span><span>Braaiasao</span><span>Ruivo</span><span>CONASEG</span><span>Don Atilio</span><span>La Molinera</span><span>La Buena Vibra</span><span>AJ Nadadores</span><span>ALPE</span><span>Cobra</span>
+        <span>JDM</span><span>Cygnus</span><span>Dalefon</span><span>Token Toys</span><span>Floristería Vista Hermosa</span><span>Dralexa</span><span>COROC</span><span>Casas ARA</span><span>Jetour</span><span>Jennifer Pérez</span><span>Santa María</span><span>Hoshi</span><span>Gusto</span><span>Electrolit</span><span>Tubo Hotel</span><span>Foto Viena</span><span>Braaiasao</span><span>Ruivo</span><span>CONASEG</span><span>Don Atilio</span><span>La Molinera</span><span>La Buena Vibra</span><span>AJ Nadadores</span><span>ALPE</span><span>Cobra</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__cta"><a href="index.html#contact" class="footer__big" data-i18n="footer_big">Hagamos algo memorable →</a></div>
+  <div class="footer__top">
+    <a href="index.html" class="brand brand--lg magnetic"><img class="brand__mark" src="assets/logo-tm.png" alt="TroubleMovies" /></a>
+    <p class="footer__tag" data-i18n="footer_tag">Historias que valen la pena.</p>
+  </div>
+  <div class="footer__links">
+    <a href="proyectos.html" data-i18n="nav_projects">Proyectos</a>
+    <a href="index.html#services" data-i18n="nav_services">Servicios</a>
+    <a href="eventos.html" data-i18n="nav_events">Eventos</a>
+    <a href="index.html#contact" data-i18n="nav_contact">Contacto</a>
+    <a href="https://instagram.com/troublemovies" target="_blank" rel="noopener">Instagram</a>
+  </div>
+  <div class="footer__bottom">
+    <span>© <span id="year"></span> TroubleMovies Productions®</span>
+    <span class="footer__deer">✦</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
+  <p class="lightbox__title" id="lightboxTitle"></p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+window.PAGE_I18N = {
+  es: {
+    crumb:"Proyectos", r_tag:"Cobertura en vivo",
+    r_sub:"Cobertura audiovisual completa de la carrera: transmisión multicámara en vivo, podios, fotos y reels del evento.",
+    r_m1:"Fecha", r_m1v:"Enero 2026", r_m2:"Carreras", r_m3:"Cámaras",
+    r_cta1:"Cámaras en vivo", r_cta2:"Ver podios",
+    r_cam_eye:"Cobertura multicámara", r_cam_title:"Todos los ángulos del evento",
+    r_cam_lead:"Tres puntos de cámara cubriendo la carrera en tiempo real. Cambia entre la transmisión en vivo y el recap grabado.",
+    r_seg_recap:"Recap", r_seg_live:"En vivo",
+    r_c1:"Cámara 1 · Meta", r_c1d:"En la línea de meta. Operada por Miranda Sotelo.",
+    r_c2:"Cámara 2 · Km 1", r_c2d:"En el kilómetro 1. Operada por Jolie Contreras.",
+    r_c3:"Cámara 3 · Entrevistas", r_c3d:"Cámara de entrevistas. Operada por Alonso Noval.",
+    r_watch_live:"▶ Ver en vivo", r_watch_recap:"Ver grabación",
+    r_pod_eye:"Resultados", r_pod_title:"Los podios", r_race1:"Carrera 5 KM", r_race2:"Carrera 2 KM",
+    r_media_eye:"Revive el evento", r_media_title:"Fotos y reels",
+    r_photos_t:"Fotos del evento", r_photos_d:"Galería completa del día de la carrera.",
+    r_reels_t:"Reels y videos adicionales", r_reels_d:"Clips, momentos y contenido para redes.",
+    r_team_eye:"Detrás de cámara", r_team_title:"El equipo del evento",
+    r_t1:"Cámara 3 y supervisión", r_t2:"Cámara 1 y supervisión", r_t3:"Cámara 2 y supervisión",
+    r_t4:"Cámara 4 móvil", r_t5:"Cámara 5 móvil", r_t6:"Informes y supervisión", r_t7:"Cámara 6 móvil",
+    r_sp_eye:"Gracias a nuestros patrocinadores",
+    r_toast:"La transmisión en vivo se activa el día del evento.",
+  },
+  en: {
+    crumb:"Projects", r_tag:"Live coverage",
+    r_sub:"Full audiovisual coverage of the race: live multi-camera broadcast, podiums, photos and event reels.",
+    r_m1:"Date", r_m1v:"January 2026", r_m2:"Races", r_m3:"Cameras",
+    r_cta1:"Live cameras", r_cta2:"See podiums",
+    r_cam_eye:"Multi-camera coverage", r_cam_title:"Every angle of the event",
+    r_cam_lead:"Three camera points covering the race in real time. Switch between the live broadcast and the recorded recap.",
+    r_seg_recap:"Recap", r_seg_live:"Live",
+    r_c1:"Camera 1 · Finish", r_c1d:"At the finish line. Operated by Miranda Sotelo.",
+    r_c2:"Camera 2 · Km 1", r_c2d:"At kilometer 1. Operated by Jolie Contreras.",
+    r_c3:"Camera 3 · Interviews", r_c3d:"Interview camera. Operated by Alonso Noval.",
+    r_watch_live:"▶ Watch live", r_watch_recap:"Watch recording",
+    r_pod_eye:"Results", r_pod_title:"The podiums", r_race1:"5 KM Race", r_race2:"2 KM Race",
+    r_media_eye:"Relive the event", r_media_title:"Photos & reels",
+    r_photos_t:"Event photos", r_photos_d:"Full gallery from race day.",
+    r_reels_t:"Reels & extra videos", r_reels_d:"Clips, moments and social content.",
+    r_team_eye:"Behind the camera", r_team_title:"The event team",
+    r_t1:"Camera 3 & supervision", r_t2:"Camera 1 & supervision", r_t3:"Camera 2 & supervision",
+    r_t4:"Mobile camera 4", r_t5:"Mobile camera 5", r_t6:"Reporting & supervision", r_t7:"Mobile camera 6",
+    r_sp_eye:"Thanks to our sponsors",
+    r_toast:"The live broadcast goes on air on event day.",
+  }
+};
+</script>
+<script src="script.js"></script>
+<script>
+  // page-specific: recap/live toggle + live-stream toast
+  (function(){
+    var cams=document.getElementById('cams'), seg=document.getElementById('camSeg'), toast=document.getElementById('toast');
+    if(seg) seg.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return;
+      [].forEach.call(seg.children,function(c){c.classList.remove('on')}); b.classList.add('on');
+      cams.classList.toggle('is-recap', b.dataset.mode==='recap');
+    });
+    var tt;
+    function showToast(msg){ if(!toast) return; toast.textContent=msg; toast.classList.add('show'); clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('show')},3200); }
+    [].forEach.call(document.querySelectorAll('.live-only[data-stream]'),function(btn){
+      btn.addEventListener('click',function(){
+        var id=btn.getAttribute('data-stream');
+        var msg=(window.PAGE_I18N[document.documentElement.lang]||window.PAGE_I18N.es).r_toast;
+        if(id){ window.TM && window.TM.openLightbox(id,'MARYRUN XI — En vivo'); } else { showToast(msg); }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
