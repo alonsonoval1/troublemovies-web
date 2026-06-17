@@ -184,6 +184,31 @@
     </div>
   </section>
 
+  <!-- GALLERY -->
+  <section class="sec wrap" id="galeria">
+    <div class="sec__head reveal">
+      <p class="eyebrow"><span data-i18n="r_gal_eye">Galería</span></p>
+      <h2 class="sec__title" data-i18n="r_gal_title">El día de la carrera</h2>
+    </div>
+    <div class="gallery">
+      <div class="gphoto gphoto--big reveal" data-img="assets/mr-g4.jpg" data-title="MARYRUN XI"><img src="assets/mr-g4.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g1.jpg" data-title="MARYRUN XI"><img src="assets/mr-g1.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g8.jpg" data-title="MARYRUN XI"><img src="assets/mr-g8.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g2.jpg" data-title="MARYRUN XI"><img src="assets/mr-g2.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g9.jpg" data-title="MARYRUN XI"><img src="assets/mr-g9.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g3.jpg" data-title="MARYRUN XI"><img src="assets/mr-g3.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g10.jpg" data-title="MARYRUN XI"><img src="assets/mr-g10.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g5.jpg" data-title="MARYRUN XI"><img src="assets/mr-g5.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g7.jpg" data-title="MARYRUN XI"><img src="assets/mr-g7.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g11.jpg" data-title="MARYRUN XI"><img src="assets/mr-g11.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g12.jpg" data-title="MARYRUN XI"><img src="assets/mr-g12.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+      <div class="gphoto reveal" data-img="assets/mr-g6.jpg" data-title="MARYRUN XI"><img src="assets/mr-g6.jpg" alt="MARYRUN XI" loading="lazy" /></div>
+    </div>
+    <div style="margin-top:1.6rem; text-align:center">
+      <a class="btn btn--ghost magnetic" href="https://drive.google.com/drive/folders/1Jsk9e9qF9EszO9kZHnIEyn_B0ZmAwIBd?usp=share_link" target="_blank" rel="noopener" data-i18n="r_gal_all">Ver todas las fotos ↗</a>
+    </div>
+  </section>
+
   <!-- TEAM -->
   <section class="sec wrap">
     <div class="sec__head reveal">
@@ -235,6 +260,8 @@
 
 <div class="lightbox" id="lightbox" aria-hidden="true">
   <button class="lightbox__close" id="lightboxClose" aria-label="Cerrar">✕</button>
+  <button class="lightbox__arrow lightbox__arrow--prev" id="lbPrev" aria-label="Anterior">‹</button>
+  <button class="lightbox__arrow lightbox__arrow--next" id="lbNext" aria-label="Siguiente">›</button>
   <div class="lightbox__frame"><div id="lightboxPlayer"></div></div>
   <p class="lightbox__title" id="lightboxTitle"></p>
 </div>
@@ -259,6 +286,7 @@ window.PAGE_I18N = {
     r_media_eye:"Revive el evento", r_media_title:"Fotos y reels",
     r_photos_t:"Fotos del evento", r_photos_d:"Galería completa del día de la carrera.",
     r_reels_t:"Reels y videos adicionales", r_reels_d:"Clips, momentos y contenido para redes.",
+    r_gal_eye:"Galería", r_gal_title:"El día de la carrera", r_gal_all:"Ver todas las fotos ↗",
     r_team_eye:"Detrás de cámara", r_team_title:"El equipo del evento",
     r_t1:"Cámara 3 y supervisión", r_t2:"Cámara 1 y supervisión", r_t3:"Cámara 2 y supervisión",
     r_t4:"Cámara 4 móvil", r_t5:"Cámara 5 móvil", r_t6:"Informes y supervisión", r_t7:"Cámara 6 móvil",
@@ -281,6 +309,7 @@ window.PAGE_I18N = {
     r_media_eye:"Relive the event", r_media_title:"Photos & reels",
     r_photos_t:"Event photos", r_photos_d:"Full gallery from race day.",
     r_reels_t:"Reels & extra videos", r_reels_d:"Clips, moments and social content.",
+    r_gal_eye:"Gallery", r_gal_title:"Race day", r_gal_all:"See all photos ↗",
     r_team_eye:"Behind the camera", r_team_title:"The event team",
     r_t1:"Camera 3 & supervision", r_t2:"Camera 1 & supervision", r_t3:"Camera 2 & supervision",
     r_t4:"Mobile camera 4", r_t5:"Mobile camera 5", r_t6:"Reporting & supervision", r_t7:"Mobile camera 6",
