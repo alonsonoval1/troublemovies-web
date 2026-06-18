@@ -5,6 +5,69 @@
 =================================================================== */
 (function () {
   "use strict";
+
+  /* ---------- Dev security gate (SOLO entorno de desarrollo) ---------- */
+  (function devGate() {
+    try { if (localStorage.getItem("tm_devgate_v1") === "1") return; } catch (e) {}
+    const gate = document.createElement("div");
+    gate.id = "devGate";
+    gate.innerHTML = `
+      <div id="devGateBox">
+        <div class="dg-top-bar">
+          <span class="dg-dot red"></span>
+          <span class="dg-dot yellow"></span>
+          <span class="dg-dot green"></span>
+          <span class="dg-top-label">SENSEPOT DEV // RESTRICTED ACCESS</span>
+        </div>
+        <div class="dg-video-wrap">
+          <video class="dg-video" autoplay muted loop playsinline>
+            <source src="assets/sp-loading.webm" type="video/webm">
+            <source src="assets/sp-loading.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="dg-badge"><span class="dg-badge-dot"></span> ENTORNO PRIVADO · DIVISIÓN SENSEPOT DEV</div>
+        <h2 class="dg-title">Acceso Restringido</h2>
+        <p class="dg-body">
+          Estás ingresando a un <strong>sitio privado y seguro</strong> de
+          <strong>Sensepot Smart Technologies</strong>. Este entorno es de uso
+          exclusivo para desarrollo y pruebas internas.<br><br>
+          Esta versión puede contener <strong>fallas, funcionalidades incompletas
+          y vulnerabilidades de sistema</strong> propias de un entorno de desarrollo.
+          Al continuar, confirmas que eres personal autorizado y aceptas los
+          <strong>Términos y Condiciones de Desarrollador Sensepot</strong>
+          (División Sensepot Dev).
+        </p>
+        <div class="dg-meta">
+          <span class="dg-meta-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="10" height="7" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg> TLS 1.3 Encriptado</span>
+          <span class="dg-meta-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="5"/><path d="M8 5v3l2 2"/></svg> Sesión Monitorizada</span>
+          <span class="dg-meta-item"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L2 5v4c0 3.3 2.7 5.7 6 6 3.3-.3 6-2.7 6-6V5L8 2z"/></svg> Acceso Verificado</span>
+        </div>
+        <button id="devGateBtn">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2a8 8 0 1 0 0 16A8 8 0 0 0 10 2zm3.5 5.5-4 4-2-2"/></svg>
+          Entendido — Continuar al Entorno Dev
+        </button>
+        <p class="dg-footer-note">Acceso registrado · Sensepot Smart Technologies® · <span id="dg-ts"></span></p>
+      </div>`;
+    const mount = () => {
+      document.body.prepend(gate);
+      document.documentElement.style.overflow = "hidden";
+      const t = new Date(), pad = (n) => String(n).padStart(2, "0");
+      const tsEl = gate.querySelector("#dg-ts");
+      if (tsEl) tsEl.textContent =
+        `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())} ` +
+        `${pad(t.getHours())}:${pad(t.getMinutes())}:${pad(t.getSeconds())} ` +
+        `UTC${t.getTimezoneOffset() <= 0 ? "+" : "-"}${pad(Math.abs(t.getTimezoneOffset() / 60))}`;
+      gate.querySelector("#devGateBtn").addEventListener("click", () => {
+        try { localStorage.setItem("tm_devgate_v1", "1"); } catch (e) {}
+        gate.classList.add("hide");
+        document.documentElement.style.overflow = "";
+        setTimeout(() => gate.remove(), 600);
+      });
+    };
+    if (document.body) mount();
+    else document.addEventListener("DOMContentLoaded", mount);
+  })();
+
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
