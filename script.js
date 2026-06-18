@@ -289,7 +289,7 @@
     });
   }
   const reelBtn = $("#reelBtn");
-  if (reelBtn) reelBtn.addEventListener("click", () => openLightbox(WORK[0].yt, WORK[0].name + " — " + WORK[0].cat));
+  if (reelBtn) reelBtn.addEventListener("click", () => openVideoFile("assets/showreel.mp4", "TroubleMovies — Showreel"));
 
   // expose for page-specific scripts
   window.TM = { openLightbox, openImage, openVideoFile, closeLightbox };
@@ -331,7 +331,7 @@
       nav_projects: "Proyectos", nav_events: "Eventos", nav_tmmg: "TMMG", nav_home: "Inicio", nav_legal: "Aviso Legal", nav_privacy: "Privacidad",
       hero_eyebrow: "Productora audiovisual", hero_l1: "Historias que", hero_l2: "valen la pena.",
       hero_sub: "Convertimos ideas en historias que la gente recuerda — y comparte. A veces hay que meterse en problemas para crear algo memorable. Del bueno.",
-      hero_work: "Ver el trabajo", hero_reel_k: "Último proyecto", hero_hint: "Mueve el cursor para iluminar", hero_scroll: "Scroll",
+      hero_work: "Ver el trabajo", hero_reel_k: "Ver showreel", hero_reel_v: "TroubleMovies · Reel", hero_hint: "Mueve el cursor para iluminar", hero_scroll: "Scroll",
       work_eyebrow: "Trabajo seleccionado", work_title: "No lo contamos. Te lo mostramos.",
       services_eyebrow: "Servicios", services_title: "¿Qué necesitas crear?",
       services_lead: "De la idea a la entrega final. Tú traes la visión, nosotros el oficio para volverla inolvidable.",
@@ -339,6 +339,13 @@
       svc2_t: "Spots y contenido digital", svc2_d: "Videos creativos para redes, campañas de marketing y lanzamientos de marca. Pensados para detener el scroll.",
       svc3_t: "Cortometrajes y cine", svc3_d: "Desarrollo de historias con alma, listas para festivales y exhibiciones. Narrativa que trasciende la pantalla.",
       svc4_t: "Cobertura de eventos", svc4_d: "Graduaciones, conferencias, lanzamientos y experiencias en vivo filmadas con mirada cinematográfica.",
+      gear_eyebrow: "El oficio", gear_title: "Con qué grabamos",
+      gear_lead: "Equipo profesional y oficio para que cada proyecto se vea —y se oiga— como cine.",
+      g1_t: "Drones cinematográficos", g1_d: "Tomas aéreas y FPV con encuadre y movimiento de cine.",
+      g2_t: "Cámaras de cine", g2_d: "Sensores 4K/6K, ópticas y estabilización profesional.",
+      g3_t: "Multicámara en vivo", g3_d: "Transmisión y switch en tiempo real, varios puntos a la vez.",
+      g4_t: "Audio profesional", g4_d: "Captura y mezcla limpias, dentro y fuera del set.",
+      g5_t: "Postproducción y color", g5_d: "Edición, color grading y motion graphics con identidad.",
       about_eyebrow: "Por qué Trouble", about_title: "Las historias que importan no nacen de jugar a lo seguro.",
       about_cap: "El venado · nuestro tótem",
       about_p1: "Somos <b>TroubleMovies</b>, una productora audiovisual que cree que cada proyecto merece una historia única. No hacemos contenido que pasa desapercibido: hacemos piezas que detienen el scroll, que emocionan y que mueven a la acción.",
@@ -365,7 +372,7 @@
       nav_projects: "Projects", nav_events: "Events", nav_tmmg: "TMMG", nav_home: "Home", nav_legal: "Legal Notice", nav_privacy: "Privacy",
       hero_eyebrow: "Audiovisual production", hero_l1: "Stories worth", hero_l2: "the trouble.",
       hero_sub: "We turn ideas into stories people remember — and share. Sometimes you have to get into a little trouble to create something memorable. The good kind.",
-      hero_work: "See the work", hero_reel_k: "Latest project", hero_hint: "Move your cursor to light it up", hero_scroll: "Scroll",
+      hero_work: "See the work", hero_reel_k: "Watch showreel", hero_reel_v: "TroubleMovies · Reel", hero_hint: "Move your cursor to light it up", hero_scroll: "Scroll",
       work_eyebrow: "Selected work", work_title: "We don't tell you. We show you.",
       services_eyebrow: "Services", services_title: "What do you need to create?",
       services_lead: "From the idea to final delivery. You bring the vision, we bring the craft to make it unforgettable.",
@@ -373,6 +380,13 @@
       svc2_t: "Spots & digital content", svc2_d: "Creative videos for social, marketing campaigns and brand launches. Built to stop the scroll.",
       svc3_t: "Short films & cinema", svc3_d: "Developing stories with soul, ready for festivals and screenings. Narrative that transcends the screen.",
       svc4_t: "Event coverage", svc4_d: "Graduations, conferences, launches and live experiences filmed with a cinematic eye.",
+      gear_eyebrow: "The craft", gear_title: "What we shoot with",
+      gear_lead: "Pro gear and craft so every project looks —and sounds— like cinema.",
+      g1_t: "Cinematic drones", g1_d: "Aerial and FPV shots with cinema framing and movement.",
+      g2_t: "Cinema cameras", g2_d: "4K/6K sensors, pro lenses and stabilization.",
+      g3_t: "Live multicam", g3_d: "Real-time broadcast and switching from several angles.",
+      g4_t: "Professional audio", g4_d: "Clean capture and mix, on set and beyond.",
+      g5_t: "Post & color", g5_d: "Editing, color grading and motion graphics with identity.",
       about_eyebrow: "Why Trouble", about_title: "The stories that matter never come from playing it safe.",
       about_cap: "The deer · our totem",
       about_p1: "We're <b>TroubleMovies</b>, an audiovisual studio that believes every project deserves a unique story. We don't make content that goes unnoticed: we make pieces that stop the scroll, stir emotion and move people to act.",
