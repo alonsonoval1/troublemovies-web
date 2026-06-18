@@ -1,5 +1,5 @@
 /* ===================================================================
-   TROUBLEMOVIES — interactions v3 (page-agnostic)
+   TROUBLEMOVIES · interactions v3 (page-agnostic)
    Works on the home page and every project subpage. Every home-only
    block is guarded so the same file can be shared site-wide.
 =================================================================== */
@@ -192,7 +192,7 @@
   const grid = $("#workGrid");
   if (grid) {
     grid.innerHTML = WORK.map((w) => `
-      <article class="work__card work__card--${w.size}" data-yt="${w.yt}" data-title="${w.name} — ${w.cat}" tabindex="0" role="button" data-cursor="play" aria-label="Reproducir ${w.name}">
+      <article class="work__card work__card--${w.size}" data-yt="${w.yt}" data-title="${w.name} · ${w.cat}" tabindex="0" role="button" data-cursor="play" aria-label="Reproducir ${w.name}">
         <span class="work__tag" data-tag>Ver video</span>
         <div class="work__media">
           <picture>
@@ -258,7 +258,7 @@
         if (e.key === "ArrowLeft") stepGallery(-1);
       }
     });
-    // generic openers — any element with data-video="<ytid>" (+ optional data-title)
+    // generic openers · any element with data-video="<ytid>" (+ optional data-title)
     $$("[data-video]").forEach((el) => {
       el.setAttribute("tabindex", el.getAttribute("tabindex") || "0");
       el.setAttribute("role", el.getAttribute("role") || "button");
@@ -266,7 +266,7 @@
       el.addEventListener("click", go);
       el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
-    // local video openers — any element with data-localvideo="<src>" (+ optional data-title)
+    // local video openers · any element with data-localvideo="<src>" (+ optional data-title)
     $$("[data-localvideo]").forEach((el) => {
       el.setAttribute("tabindex", el.getAttribute("tabindex") || "0");
       el.setAttribute("role", el.getAttribute("role") || "button");
@@ -277,7 +277,7 @@
     const lbPrev = $("#lbPrev"), lbNext = $("#lbNext");
     if (lbPrev) lbPrev.addEventListener("click", (e) => { e.stopPropagation(); stepGallery(-1); });
     if (lbNext) lbNext.addEventListener("click", (e) => { e.stopPropagation(); stepGallery(1); });
-    // image openers — any element with data-img="<src>" (+ optional data-title)
+    // image openers · any element with data-img="<src>" (+ optional data-title)
     const imgEls = $$("[data-img]");
     gallery = imgEls.map((el) => ({ src: el.dataset.img, title: el.dataset.title || "" }));
     imgEls.forEach((el, i) => {
@@ -289,7 +289,7 @@
     });
   }
   const reelBtn = $("#reelBtn");
-  if (reelBtn) reelBtn.addEventListener("click", () => openVideoFile("assets/showreel.mp4", "TroubleMovies — Showreel"));
+  if (reelBtn) reelBtn.addEventListener("click", () => openVideoFile("assets/showreel.mp4", "TroubleMovies · Showreel"));
 
   // expose for page-specific scripts
   window.TM = { openLightbox, openImage, openVideoFile, closeLightbox };
@@ -300,9 +300,9 @@
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const name = $("#f_name").value.trim(), email = $("#f_email").value.trim();
-      const type = $("#f_type").value, budget = $("#f_budget").value || "—", msg = $("#f_msg").value.trim();
+      const type = $("#f_type").value, budget = $("#f_budget").value || "Sin especificar", msg = $("#f_msg").value.trim();
       if (!name || !email || !type) { note.style.color = "var(--magenta)"; note.textContent = I18N[lang].form_err; return; }
-      const subject = encodeURIComponent(`Nuevo proyecto — ${name} (${type})`);
+      const subject = encodeURIComponent(`Nuevo proyecto · ${name} (${type})`);
       const body = encodeURIComponent(`Nombre: ${name}\nEmail: ${email}\nTipo: ${type}\nPresupuesto: ${budget}\n\n${msg}`);
       location.href = `mailto:troublemoviesproductions@gmail.com?subject=${subject}&body=${body}`;
       note.style.color = "var(--violet)"; note.textContent = I18N[lang].form_ok; form.reset();
@@ -323,14 +323,14 @@
   });
 
   /* ===================================================================
-     i18n — base dictionary (home) merged with optional window.PAGE_I18N
+     i18n · base dictionary (home) merged with optional window.PAGE_I18N
   =================================================================== */
   const I18N = {
     es: {
       nav_work: "Trabajo", nav_services: "Servicios", nav_about: "Nosotros", nav_process: "Proceso", nav_contact: "Contacto", nav_cta: "Cuéntanos tu proyecto",
       nav_projects: "Proyectos", nav_events: "Eventos", nav_tmmg: "TMMG", nav_home: "Inicio", nav_legal: "Aviso Legal", nav_privacy: "Privacidad",
       hero_eyebrow: "Productora audiovisual", hero_l1: "Historias que", hero_l2: "valen la pena.",
-      hero_sub: "Convertimos ideas en historias que la gente recuerda — y comparte. A veces hay que meterse en problemas para crear algo memorable. Del bueno.",
+      hero_sub: "Convertimos ideas en historias que la gente recuerda y comparte. A veces hay que meterse en problemas para crear algo memorable. Del bueno.",
       hero_work: "Ver el trabajo", hero_reel_k: "Ver showreel", hero_reel_v: "TroubleMovies · Reel", hero_hint: "Mueve el cursor para iluminar", hero_scroll: "Scroll",
       work_eyebrow: "Trabajo seleccionado", work_title: "No lo contamos. Te lo mostramos.",
       services_eyebrow: "Servicios", services_title: "¿Qué necesitas crear?",
@@ -340,7 +340,7 @@
       svc3_t: "Cortometrajes y cine", svc3_d: "Desarrollo de historias con alma, listas para festivales y exhibiciones. Narrativa que trasciende la pantalla.",
       svc4_t: "Cobertura de eventos", svc4_d: "Graduaciones, conferencias, lanzamientos y experiencias en vivo filmadas con mirada cinematográfica.",
       gear_eyebrow: "El oficio", gear_title: "Con qué grabamos",
-      gear_lead: "Equipo profesional y oficio para que cada proyecto se vea —y se oiga— como cine.",
+      gear_lead: "Equipo profesional y oficio para que cada proyecto se vea y se oiga como cine.",
       g1_t: "Drones cinematográficos", g1_d: "Tomas aéreas y FPV con encuadre y movimiento de cine.",
       g2_t: "Cámaras de cine", g2_d: "Sensores 4K/6K, ópticas y estabilización profesional.",
       g3_t: "Multicámara en vivo", g3_d: "Transmisión y switch en tiempo real, varios puntos a la vez.",
@@ -349,7 +349,7 @@
       about_eyebrow: "Por qué Trouble", about_title: "Las historias que importan no nacen de jugar a lo seguro.",
       about_cap: "El venado · nuestro tótem",
       about_p1: "Somos <b>TroubleMovies</b>, una productora audiovisual que cree que cada proyecto merece una historia única. No hacemos contenido que pasa desapercibido: hacemos piezas que detienen el scroll, que emocionan y que mueven a la acción.",
-      about_p2: "El venado es nuestro tótem: silencioso, atento, imposible de ignorar cuando aparece en la oscuridad. Así trabajamos — con calma, oficio y una mirada que no se conforma. Creativos por convicción, profesionales por costumbre.",
+      about_p2: "El venado es nuestro tótem: silencioso, atento, imposible de ignorar cuando aparece en la oscuridad. Así trabajamos: con calma, oficio y una mirada que no se conforma. Creativos por convicción, profesionales por costumbre.",
       stat_1: "Proyectos producidos", stat_2: "Hechos a medida", stat_3: "Marcas que confían", stat_4: "Vistas generadas",
       process_eyebrow: "Cómo trabajamos", process_title: "Sin sorpresas. Solo buen trabajo.",
       step1_t: "Conversamos", step1_d: "Entendemos tu objetivo, tu marca y a quién quieres llegar. Sin briefs interminables.",
@@ -371,7 +371,7 @@
       nav_work: "Work", nav_services: "Services", nav_about: "About", nav_process: "Process", nav_contact: "Contact", nav_cta: "Tell us your project",
       nav_projects: "Projects", nav_events: "Events", nav_tmmg: "TMMG", nav_home: "Home", nav_legal: "Legal Notice", nav_privacy: "Privacy",
       hero_eyebrow: "Audiovisual production", hero_l1: "Stories worth", hero_l2: "the trouble.",
-      hero_sub: "We turn ideas into stories people remember — and share. Sometimes you have to get into a little trouble to create something memorable. The good kind.",
+      hero_sub: "We turn ideas into stories people remember and share. Sometimes you have to get into a little trouble to create something memorable. The good kind.",
       hero_work: "See the work", hero_reel_k: "Watch showreel", hero_reel_v: "TroubleMovies · Reel", hero_hint: "Move your cursor to light it up", hero_scroll: "Scroll",
       work_eyebrow: "Selected work", work_title: "We don't tell you. We show you.",
       services_eyebrow: "Services", services_title: "What do you need to create?",
@@ -381,7 +381,7 @@
       svc3_t: "Short films & cinema", svc3_d: "Developing stories with soul, ready for festivals and screenings. Narrative that transcends the screen.",
       svc4_t: "Event coverage", svc4_d: "Graduations, conferences, launches and live experiences filmed with a cinematic eye.",
       gear_eyebrow: "The craft", gear_title: "What we shoot with",
-      gear_lead: "Pro gear and craft so every project looks —and sounds— like cinema.",
+      gear_lead: "Pro gear and craft so every project looks and sounds like cinema.",
       g1_t: "Cinematic drones", g1_d: "Aerial and FPV shots with cinema framing and movement.",
       g2_t: "Cinema cameras", g2_d: "4K/6K sensors, pro lenses and stabilization.",
       g3_t: "Live multicam", g3_d: "Real-time broadcast and switching from several angles.",
@@ -390,7 +390,7 @@
       about_eyebrow: "Why Trouble", about_title: "The stories that matter never come from playing it safe.",
       about_cap: "The deer · our totem",
       about_p1: "We're <b>TroubleMovies</b>, an audiovisual studio that believes every project deserves a unique story. We don't make content that goes unnoticed: we make pieces that stop the scroll, stir emotion and move people to act.",
-      about_p2: "The deer is our totem: quiet, watchful, impossible to ignore when it appears in the dark. That's how we work — with calm, craft and an eye that won't settle. Creative by conviction, professional by habit.",
+      about_p2: "The deer is our totem: quiet, watchful, impossible to ignore when it appears in the dark. That's how we work: with calm, craft and an eye that won't settle. Creative by conviction, professional by habit.",
       stat_1: "Projects produced", stat_2: "Made to measure", stat_3: "Brands that trust us", stat_4: "Views generated",
       process_eyebrow: "How we work", process_title: "No surprises. Just great work.",
       step1_t: "We talk", step1_d: "We understand your goal, your brand and who you want to reach. No endless briefs.",
