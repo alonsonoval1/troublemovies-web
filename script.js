@@ -215,9 +215,11 @@
 
   /* ---------- Lightbox (site-wide) ---------- */
   const lb = $("#lightbox"), lbPlayer = $("#lightboxPlayer"), lbTitle = $("#lightboxTitle");
-  function openLightbox(id, title) {
+  function openLightbox(id, title, start) {
     if (!lb) return;
-    lbPlayer.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0" title="${title || "Video"}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+    const s = parseInt(start, 10);
+    const startParam = (s > 0) ? `&start=${s}` : "";
+    lbPlayer.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0${startParam}" title="${title || "Video"}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
     if (lbTitle) lbTitle.textContent = title || "";
     lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
   }
@@ -260,7 +262,7 @@
     $$("[data-video]").forEach((el) => {
       el.setAttribute("tabindex", el.getAttribute("tabindex") || "0");
       el.setAttribute("role", el.getAttribute("role") || "button");
-      const go = () => openLightbox(el.dataset.video, el.dataset.title || el.getAttribute("aria-label"));
+      const go = () => openLightbox(el.dataset.video, el.dataset.title || el.getAttribute("aria-label"), el.dataset.start);
       el.addEventListener("click", go);
       el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
