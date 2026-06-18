@@ -230,6 +230,12 @@
     if (lbTitle) lbTitle.textContent = title || "";
     lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
   }
+  function openVideoFile(src, title) {
+    if (!lb) return;
+    lbPlayer.innerHTML = `<video src="${src}" controls autoplay playsinline style="width:100%;height:100%;object-fit:contain;background:#000"></video>`;
+    if (lbTitle) lbTitle.textContent = title || "";
+    lb.classList.add("open"); lb.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden";
+  }
   function stepGallery(d) {
     if (!gallery.length) return;
     gIdx = (gIdx + d + gallery.length) % gallery.length;
@@ -258,6 +264,14 @@
       el.addEventListener("click", go);
       el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
+    // local video openers — any element with data-localvideo="<src>" (+ optional data-title)
+    $$("[data-localvideo]").forEach((el) => {
+      el.setAttribute("tabindex", el.getAttribute("tabindex") || "0");
+      el.setAttribute("role", el.getAttribute("role") || "button");
+      const go = () => openVideoFile(el.dataset.localvideo, el.dataset.title || el.getAttribute("aria-label"));
+      el.addEventListener("click", go);
+      el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+    });
     const lbPrev = $("#lbPrev"), lbNext = $("#lbNext");
     if (lbPrev) lbPrev.addEventListener("click", (e) => { e.stopPropagation(); stepGallery(-1); });
     if (lbNext) lbNext.addEventListener("click", (e) => { e.stopPropagation(); stepGallery(1); });
@@ -276,7 +290,7 @@
   if (reelBtn) reelBtn.addEventListener("click", () => openLightbox(WORK[0].yt, WORK[0].name + " — " + WORK[0].cat));
 
   // expose for page-specific scripts
-  window.TM = { openLightbox, openImage, closeLightbox };
+  window.TM = { openLightbox, openImage, openVideoFile, closeLightbox };
 
   /* ---------- Contact form (home only) ---------- */
   const form = $("#contactForm"), note = $("#formNote");
