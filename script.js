@@ -190,9 +190,9 @@
   $$(".stat__num").forEach((el) => countObs.observe(el));
 
   /* ---------- HERO flashlight + parallax + embers (home only) ---------- */
-  const hero = $("#hero"), stage = $("#heroStage"), hint = $("#heroHint");
+  const hero = $("#hero"), stage = $("#heroStage");
   if (hero && stage && !reduce) {
-    let mx = 50, my = 42, tmx = 50, tmy = 42, lastInput = 0, interacted = false;
+    let mx = 50, my = 42, tmx = 50, tmy = 42, lastInput = 0;
     function setTorch() {
       tmx += (mx - tmx) * 0.12; tmy += (my - tmy) * 0.12;
       stage.style.setProperty("--mx", tmx.toFixed(2) + "%");
@@ -203,7 +203,6 @@
       mx = ((clientX - r.left) / r.width) * 100;
       my = ((clientY - r.top) / r.height) * 100;
       lastInput = performance.now();
-      if (!interacted) { interacted = true; if (hint) hint.style.opacity = "0"; }
     }
     hero.addEventListener("mousemove", (e) => pointTo(e.clientX, e.clientY));
     hero.addEventListener("touchmove", (e) => { const t = e.touches[0]; pointTo(t.clientX, t.clientY); }, { passive: true });
@@ -403,7 +402,7 @@
       nav_projects: "Proyectos", nav_events: "Eventos", nav_tmmg: "TMMG", nav_home: "Inicio", nav_legal: "Aviso Legal", nav_privacy: "Privacidad",
       hero_eyebrow: "Productora audiovisual", hero_l1: "Historias que", hero_l2: "valen la pena.",
       hero_sub: "Convertimos ideas en historias que la gente recuerda y comparte. A veces hay que meterse en problemas para crear algo memorable. Del bueno.",
-      hero_work: "Ver el trabajo", hero_reel_k: "Ver showreel", hero_reel_v: "TroubleMovies · Reel", hero_hint: "Mueve el cursor para iluminar", hero_scroll: "Scroll",
+      hero_work: "Ver el trabajo", hero_reel_k: "Ver showreel", hero_reel_v: "TroubleMovies · Reel", hero_scroll: "Scroll",
       work_eyebrow: "Trabajo seleccionado", work_title: "No lo contamos. Te lo mostramos.",
       services_eyebrow: "Servicios", services_title: "¿Qué necesitas crear?",
       services_lead: "De la idea a la entrega final. Tú traes la visión, nosotros el oficio para volverla inolvidable.",
@@ -444,7 +443,7 @@
       nav_projects: "Projects", nav_events: "Events", nav_tmmg: "TMMG", nav_home: "Home", nav_legal: "Legal Notice", nav_privacy: "Privacy",
       hero_eyebrow: "Audiovisual production", hero_l1: "Stories worth", hero_l2: "the trouble.",
       hero_sub: "We turn ideas into stories people remember and share. Sometimes you have to get into a little trouble to create something memorable. The good kind.",
-      hero_work: "See the work", hero_reel_k: "Watch showreel", hero_reel_v: "TroubleMovies · Reel", hero_hint: "Move your cursor to light it up", hero_scroll: "Scroll",
+      hero_work: "See the work", hero_reel_k: "Watch showreel", hero_reel_v: "TroubleMovies · Reel", hero_scroll: "Scroll",
       work_eyebrow: "Selected work", work_title: "We don't tell you. We show you.",
       services_eyebrow: "Services", services_title: "What do you need to create?",
       services_lead: "From the idea to final delivery. You bring the vision, we bring the craft to make it unforgettable.",

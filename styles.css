@@ -143,7 +143,6 @@ a{ color:inherit; text-decoration:none; }
 .hero__reel-txt b{ font-family:var(--mono); font-size:.78rem; color:var(--violet); font-weight:500; }
 .hero__reel-txt i{ font-style:normal; font-size:.86rem; color:var(--muted); }
 
-.hero__hint{ position:absolute; left:50%; bottom:6.5rem; transform:translateX(-50%); z-index:2; font-family:var(--mono); font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--muted-dim); opacity:0; animation:up .8s var(--ease) both 1.6s, pulse 2.4s ease-in-out infinite 2s; pointer-events:none; }
 @keyframes pulse{ 0%,100%{ opacity:.55 } 50%{ opacity:.18 } }
 .hero__scroll{ position:absolute; bottom:1.8rem; left:50%; transform:translateX(-50%); z-index:2; font-family:var(--mono); font-size:.68rem; letter-spacing:.25em; text-transform:uppercase; color:var(--muted); display:flex; flex-direction:column; align-items:center; gap:.5rem; }
 .hero__scroll i{ width:1px; height:32px; background:linear-gradient(var(--violet),transparent); animation:scrolldn 1.8s ease-in-out infinite; }
@@ -330,7 +329,6 @@ a{ color:inherit; text-decoration:none; }
   .hero__layer--ambient{ opacity:.34; }
   .hero__layer--torch{ -webkit-mask-image:radial-gradient(circle var(--torch,42vmax) at var(--mx,50%) var(--my,40%),#000 0%,#000 32%,transparent 72%); mask-image:radial-gradient(circle var(--torch,42vmax) at var(--mx,50%) var(--my,40%),#000 0%,#000 32%,transparent 72%); }
   .hero__cta{ flex-direction:column; gap:1.6rem; }
-  .hero__hint{ bottom:5.5rem; }
   .steps{ grid-template-columns:1fr; }
 }
 @media (max-width:420px){
