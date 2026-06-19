@@ -132,13 +132,22 @@
   const nav = $("#nav"), navLinks = $("#navLinks"), burger = $("#burger");
   if (nav) addEventListener("scroll", () => nav.classList.toggle("scrolled", scrollY > 40), { passive: true });
   if (burger && navLinks) {
-    burger.addEventListener("click", () => {
-      const open = navLinks.classList.toggle("open");
+    let menuScrollY = 0;
+    const setMenu = (open) => {
+      navLinks.classList.toggle("open", open);
       burger.setAttribute("aria-expanded", open);
-    });
-    $$("#navLinks a").forEach((a) => a.addEventListener("click", () => {
-      navLinks.classList.remove("open"); burger.setAttribute("aria-expanded", "false");
-    }));
+      if (open) {
+        menuScrollY = scrollY;
+        document.body.style.top = `-${menuScrollY}px`;
+        document.body.classList.add("menu-open");
+      } else if (document.body.classList.contains("menu-open")) {
+        document.body.classList.remove("menu-open");
+        document.body.style.top = "";
+        scrollTo(0, menuScrollY);
+      }
+    };
+    burger.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
+    $$("#navLinks a").forEach((a) => a.addEventListener("click", () => setMenu(false)));
   }
 
   /* ---------- Scrollspy (in-page anchors only) ---------- */
